@@ -5,7 +5,7 @@
     z-index: 1;
     top: 0;
     left: 0;
-    background-color: #111;
+    background-color: black;
     overflow-x: hidden;
     padding-top: 10px;
   }
@@ -18,10 +18,9 @@
   }
   
   .sidenav label {
-    padding: 6px 6px 6px 0px;
-    text-decoration: none;
+    padding: 6px 6px 6px 6px;
     font-size: 20px;
-    color: #818181;
+    color: gray;
     display: block;
     overflow-y: auto;
     border-bottom: 1px solid white;
@@ -29,17 +28,29 @@
 
   .sidenav input[type=checkbox] {
       visibility: hidden;
+      display: none;
   }
   
-  .sidenav label:hover, .sidenav :checked + span {
+  .sidenav label:hover, .sidenav :checked + label {
     color: white;
     cursor: pointer;
+    background-color: #5F5566;
   }
 
-  /* .sidenav :checked + span { 
-      color: #f1f1f1; 
-   } */
-  
+  .sidenav .select-btn {
+    background-color: #5F5566;
+    display: block;
+    cursor: pointer;
+    color: white;
+    font-size: 15px;
+    padding: 5px 20px;
+    margin: 15px 5px 5px 40px;
+  }
+
   .main {
     margin-left: 200px; /* Same as the width of the sidenav */
+  }
+
+  body {
+    background-color: #80ADA0;
   }
