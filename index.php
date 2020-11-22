@@ -33,73 +33,87 @@
   <div class="main">
     <div id="fips-div" style="display:none;">
       <label for="fips">FIPS:</label>
-      <input type="text" id="fips-input" name="fips">
+      <input type="number" id="fips-input" name="fips">
       <label for="fips-display">Display?</label><input id="fips-display" type="checkbox" checked/>
+      <label for="fips-exists">Should exists?</label><input id="fips-exists" type="checkbox" checked/>
     </div>
     <div id="admin2-div" style="display:none;">
       <label for="admin2">Admin2:</label>
       <input type="text" id="admin2-input" name="admin2">
       <label for="admin2-display">Display?</label><input id="admin2-display" type="checkbox" checked/>
+      <label for="admin2-exists">Should exists?</label><input id="admin2-exists" type="checkbox" checked/>
     </div>
     <div id="province-state-div" style="display:none;">
       <label for="province-state">Province State:</label>
       <input type="text" id="province-state-input" name="province-state">
       <label for="province-state-display">Display?</label><input id="province-state-display" type="checkbox" checked/>
+      <label for="province-state-exists">Should exists?</label><input id="province-state-exists" type="checkbox" checked/>
     </div>
     <div id="country-region-div" style="display:none;">
       <label for="country-region">Country Region:</label>
       <input type="text" id="country-region-input" name="country-region">
       <label for="country-region-display">Display?</label><input id="country-region-display" type="checkbox" checked/>
+      <label for="country-region-exists">Should exists?</label><input id="country-region-exists" type="checkbox" checked/>
     </div>
     <div id="last-update-div" style="display:none;">
       <label for="last-update">Last Update:</label>
-      <input type="text" id="last-update-input" name="last-update-region">
+      <input type="date" id="last-update-input" name="last-update-region">
       <label for="last-update-display">Display?</label><input id="last-update-display" type="checkbox" checked/>
+      <label for="last-update-exists">Should exists?</label><input id="last-update-exists" type="checkbox" checked/>
     </div>
     <div id="latitude-div" style="display:none;">
       <label for="latitude">Latitude:</label>
-      <input type="text" id="latitude-input" name="latitude">
+      <input type="number" id="latitude-input" name="latitude">
       <label for="latitude-display">Display?</label><input id="latitude-display" type="checkbox" checked/>
+      <label for="latitude-exists">Should exists?</label><input id="latitude-exists" type="checkbox" checked/>
     </div>
     <div id="longitude-div" style="display:none;">
       <label for="longitude">Longitude:</label>
-      <input type="text" id="longitude-input" name="longitude">
+      <input type="number" id="longitude-input" name="longitude">
       <label for="longitude-display">Display?</label><input id="longitude-display" type="checkbox" checked/>
+      <label for="longitude-exists">Should exists?</label><input id="longitude-exists" type="checkbox" checked/>
     </div>
     <div id="confirmed-div" style="display:none;">
       <label for="confirmed">Confirmed:</label>
-      <input type="text" id="confirmed-input" name="confirmed">
+      <input type="number" id="confirmed-input" name="confirmed">
       <label for="confirmed-display">Display?</label><input id="confirmed-display" type="checkbox" checked/>
+      <label for="confirmed-exists">Should exists?</label><input id="confirmed-exists" type="checkbox" checked/>
     </div>
     <div id="deaths-div" style="display:none;">
       <label for="deaths">Deaths:</label>
-      <input type="text" id="deaths-input" name="deaths">
+      <input type="number" id="deaths-input" name="deaths">
       <label for="deaths-display">Display?</label><input id="deaths-display" type="checkbox" checked/>
+      <label for="deaths-exists">Should exists?</label><input id="deaths-exists" type="checkbox" checked/>
     </div>
     <div id="recovered-div" style="display:none;">
       <label for="recovered">Recovered:</label>
-      <input type="text" id="recovered-input" name="recovered">
+      <input type="number" id="recovered-input" name="recovered">
       <label for="recovered-display">Display?</label><input id="recovered-display" type="checkbox" checked/>
+      <label for="recovered-exists">Should exists?</label><input id="recovered-exists" type="checkbox" checked/>
     </div>
     <div id="active-div" style="display:none;">
       <label for="active">Active:</label>
-      <input type="text" id="active-input" name="active">
+      <input type="number" id="active-input" name="active">
       <label for="active-display">Display?</label><input id="active-display" type="checkbox" checked/>
+      <label for="active-display-exists">Should exists?</label><input id="active-display-exists" type="checkbox" checked/>
     </div>
     <div id="combined-key-div" style="display:none;">
       <label for="combined-key">Combined Key:</label>
       <input type="text" id="combined-key-input" name="combined-key">
       <label for="combined-key-display">Display?</label><input id="combined-key-display" type="checkbox" checked/>
+      <label for="combined-key-exists">Should exists?</label><input id="combined-key-exists" type="checkbox" checked/>
     </div>
     <div id="incidence-rate-div" style="display:none;">
       <label for="incidence-rate">Incidence Rate:</label>
-      <input type="text" id="incidence-rate-input" name="incidence-rate">
+      <input type="number" id="incidence-rate-input" name="incidence-rate">
       <label for="incidence-rate-display">Display?</label><input id="incidence-rate-display" type="checkbox" checked/>
+      <label for="incidence-rate-exists">Should exists?</label><input id="incidence-rate-exists" type="checkbox" checked/>
     </div>
     <div id="case-fatality-ratio-div" style="display:none;">
       <label for="case-fatality-ratio">Case-Fatality ratio:</label>
-      <input type="text" id="case-fatality-ratio-input" name="case-fatality-ratio">
+      <input type="number" id="case-fatality-ratio-input" name="case-fatality-ratio">
       <label for="case-fatality-ratio-display">Display?</label><input id="case-fatality-ratio-display" type="checkbox" checked/>
+      <label for="case-fatality-ratio-exists">Should exists?</label><input id="case-fatality-ratio-exists" type="checkbox" checked/>
     </div>
   </div>
 </body>
