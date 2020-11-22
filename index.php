@@ -115,6 +115,30 @@
       <label for="case-fatality-ratio-display">Display?</label><input id="case-fatality-ratio-display" type="checkbox" checked/>
       <label for="case-fatality-ratio-exists">Should exists?</label><input id="case-fatality-ratio-exists" type="checkbox" checked/>
     </div>
+    <div>
+      <label for="sort-by">Sort by:</label>
+      <select name="sort-by" id="sort-by">
+        <option hidden disabled selected value> -- select an option -- </option>
+        <option value="fips">FIPS</option>
+        <option value="admin2">Admin2</option>
+        <option value="province-state">Province State</option>
+        <option value="country-region">Country Region</option>
+        <option value="last-update">Last Update</option>
+        <option value="latitude">Latitude</option>
+        <option value="longitude">Longitude</option>
+        <option value="confirmed">Confirmed</option>
+        <option value="deaths">Deaths</option>
+        <option value="recovered">Recovered</option>
+        <option value="active">Active</option>
+        <option value="combined-key">Combined Key</option>
+        <option value="incidence-rate">Incidence Rate</option>
+        <option value="case-fatality-ratio">Case-Fatality Ratio</option>
+      </select>
+      <input type="radio" id="ascending" name="asc-desc" value="ascending" checked>
+      <label for="ascending">Ascending</label>
+      <input type="radio" id="descending" name="asc-desc" value="descending">
+      <label for="descending">Descending</label>
+    </div>
   </div>
 </body>
 </html>
