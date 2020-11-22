@@ -1,9 +1,13 @@
+var fields = "#fips, #admin2, #province-state, #country-region, #last-update, #latitude, #longitude, #confirmed, #deaths, #recovered, #active, #combined-key, #incidence-rate, #case-fatality-ratio";
+$(fields).change(changeVisibilityOfInput);
+
 function selectAll() {
     var checkboxes = document.querySelectorAll('input[name=column-checkbox]');
     for (var i = 0; i < checkboxes.length; i++) {
         if (checkboxes[i] != true)
             checkboxes[i].checked = true;
     }
+    $(fields).each(changeVisibilityOfInput);
 }
 
 function deselect() {
@@ -11,20 +15,10 @@ function deselect() {
     for (var i = 0; i < checkboxes.length; i++) {
         checkboxes[i].checked = false;
     }
+    $(fields).each(changeVisibilityOfInput);
 }
 
-// $("#fips").change(function(event){
-//     console.log(this.id);
-//     if($(this).is(':checked')){
-//          $("#fips-div").show();
-//      } else {
-//          $("#fips-div").hide();
-//      }
-//  });
-
- $("#fips, #admin2").change(changeVisibilityOfInput);
-
- function changeVisibilityOfInput() {
+function changeVisibilityOfInput() {
     if($(this).is(':checked')){
         $("#" + this.id + "-div").show();
     } else {
