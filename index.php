@@ -26,8 +26,8 @@
     <input id="combined-key" type="checkbox" name="column-checkbox"/><label for="combined-key">Combined Key</label>
     <input id="incidence-rate" type="checkbox" name="column-checkbox"/><label for="incidence-rate">Incidence Rate</label>
     <input id="case-fatality-ratio" type="checkbox" name="column-checkbox"/><label for="case-fatality-ratio">Case-Fatality Ratio</label>
-    <button id="select-btn" class="select-btn" onClick="selectAll();">Select all</button>
-    <button id="select-btn" class="select-btn" onClick="deselect();">Deselect</button>
+    <button class="select-btn" onClick="selectAll();">Select all</button>
+    <button class="select-btn" onClick="deselect();">Deselect</button>
   </div>
 
   <div class="main">
