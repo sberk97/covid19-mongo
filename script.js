@@ -1,5 +1,7 @@
 var fields = "#fips, #admin2, #province-state, #country-region, #last-update, #latitude, #longitude, #confirmed, #deaths, #recovered, #active, #combined-key, #incidence-rate, #case-fatality-ratio";
+var advFields = "#confirmed-advanced, #deaths-advanced, #recovered-advanced, #active-advanced, #incidence-rate-advanced, #case-fatality-ratio-advanced";
 $(fields).change(changeVisibilityOfInput);
+$(advFields).change(changeVisibilityOfInput);
 
 function selectAll() {
     var checkboxes = document.querySelectorAll('input[name=column-checkbox]');
@@ -24,5 +26,14 @@ function changeVisibilityOfInput() {
         $("#" + this.id + "-div").show();
     } else {
         $("#" + this.id + "-div").hide();
+        $("#" + this.id + "-input").val('');
+        $("#" + this.id + "-display").prop('checked', true); 
+        $("#" + this.id + "-exists").prop('checked', true);
+        if ($("#" + this.id + "-advanced").length != 0) {
+            $("#" + this.id + "-advanced").prop('checked', false);
+            $("#" + this.id + "-advanced-div").hide();
+            $("#" + this.id + "-gt-input").val('');
+            $("#" + this.id + "-lt-input").val('');
+        }
     }
 }

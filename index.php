@@ -79,24 +79,52 @@
       <input type="number" id="confirmed-input" name="confirmed">
       <label for="confirmed-display">Display?</label><input id="confirmed-display" type="checkbox" checked/>
       <label for="confirmed-exists">Should exists?</label><input id="confirmed-exists" type="checkbox" checked/>
+      <label for="confirmed-advanced">Advanced query?</label><input id="confirmed-advanced" type="checkbox"/>
+      <div id="confirmed-advanced-div" style="display:none;">
+        <label for="confirmed-gt">Greater than:</label>
+        <input type="number" id="confirmed-gt-input" name="confirmed-gt">
+        <label for="confirmed-lt">Less than:</label>
+        <input type="number" id="confirmed-lt-input" name="confirmed-lt">
+      </div>
     </div>
     <div id="deaths-div" style="display:none;">
       <label for="deaths">Deaths:</label>
       <input type="number" id="deaths-input" name="deaths">
       <label for="deaths-display">Display?</label><input id="deaths-display" type="checkbox" checked/>
       <label for="deaths-exists">Should exists?</label><input id="deaths-exists" type="checkbox" checked/>
+      <label for="deaths-advanced">Advanced query?</label><input id="deaths-advanced" type="checkbox"/>
+      <div id="deaths-advanced-div" style="display:none;">
+        <label for="deaths-gt">Greater than:</label>
+        <input type="number" id="deaths-gt-input" name="deaths-gt">
+        <label for="deaths-lt">Less than:</label>
+        <input type="number" id="deaths-lt-input" name="deaths-lt">
+      </div>
     </div>
     <div id="recovered-div" style="display:none;">
       <label for="recovered">Recovered:</label>
       <input type="number" id="recovered-input" name="recovered">
       <label for="recovered-display">Display?</label><input id="recovered-display" type="checkbox" checked/>
       <label for="recovered-exists">Should exists?</label><input id="recovered-exists" type="checkbox" checked/>
+      <label for="recovered-advanced">Advanced query?</label><input id="recovered-advanced" type="checkbox"/>
+      <div id="recovered-advanced-div" style="display:none;">
+        <label for="recovered-gt">Greater than:</label>
+        <input type="number" id="recovered-gt-input" name="recovered-gt">
+        <label for="recovered-lt">Less than:</label>
+        <input type="number" id="recovered-lt-input" name="recovered-lt">
+      </div>
     </div>
     <div id="active-div" style="display:none;">
       <label for="active">Active:</label>
       <input type="number" id="active-input" name="active">
       <label for="active-display">Display?</label><input id="active-display" type="checkbox" checked/>
       <label for="active-display-exists">Should exists?</label><input id="active-display-exists" type="checkbox" checked/>
+      <label for="active-advanced">Advanced query?</label><input id="active-advanced" type="checkbox"/>
+      <div id="active-advanced-div" style="display:none;">
+        <label for="active-gt">Greater than:</label>
+        <input type="number" id="active-gt-input" name="active-gt">
+        <label for="active-lt">Less than:</label>
+        <input type="number" id="active-lt-input" name="active-lt">
+      </div>
     </div>
     <div id="combined-key-div" style="display:none;">
       <label for="combined-key">Combined Key:</label>
@@ -109,12 +137,26 @@
       <input type="number" id="incidence-rate-input" name="incidence-rate">
       <label for="incidence-rate-display">Display?</label><input id="incidence-rate-display" type="checkbox" checked/>
       <label for="incidence-rate-exists">Should exists?</label><input id="incidence-rate-exists" type="checkbox" checked/>
+      <label for="incidence-rate-advanced">Advanced query?</label><input id="incidence-rate-advanced" type="checkbox"/>
+      <div id="incidence-rate-advanced-div" style="display:none;">
+        <label for="incidence-rate-gt">Greater than:</label>
+        <input type="number" id="incidence-rate-gt-input" name="incidence-rate-gt">
+        <label for="incidence-rate-lt">Less than:</label>
+        <input type="number" id="incidence-rate-lt-input" name="incidence-rate-lt">
+      </div>
     </div>
     <div id="case-fatality-ratio-div" style="display:none;">
       <label for="case-fatality-ratio">Case-Fatality ratio:</label>
       <input type="number" id="case-fatality-ratio-input" name="case-fatality-ratio">
       <label for="case-fatality-ratio-display">Display?</label><input id="case-fatality-ratio-display" type="checkbox" checked/>
       <label for="case-fatality-ratio-exists">Should exists?</label><input id="case-fatality-ratio-exists" type="checkbox" checked/>
+      <label for="case-fatality-ratio-advanced">Advanced query?</label><input id="case-fatality-ratio-advanced" type="checkbox"/>
+      <div id="case-fatality-ratio-advanced-div" style="display:none;">
+        <label for="case-fatality-ratio-gt">Greater than:</label>
+        <input type="number" id="case-fatality-ratio-gt-input" name="case-fatality-ratio-gt">
+        <label for="case-fatality-ratio-lt">Less than:</label>
+        <input type="number" id="case-fatality-ratio-lt-input" name="case-fatality-ratio-lt">
+      </div>
     </div>
     <div>
       <label for="sort-by">Sort by:</label>
