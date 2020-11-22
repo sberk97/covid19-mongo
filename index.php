@@ -147,7 +147,8 @@
       <input type="number" id="skip-input" name="skip" value="0">
     </div>
     <div>
-      <button id="reset-btn" type="reset" value="Reset">Reset form</button>
+      <button id="submit-btn" type="submit" value="reset">SUBMIT</button>
+      <button id="reset-btn" type="reset" value="reset">Reset form</button>
     </div>
     </form>
   </div>
