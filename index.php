@@ -31,6 +31,7 @@
   </div>
 
   <div class="main">
+    <form id="covid-form">
     <div id="fips-div" style="display:none;">
       <label for="fips">FIPS:</label>
       <input type="number" id="fips-input" name="fips">
@@ -139,6 +140,16 @@
       <input type="radio" id="descending" name="asc-desc" value="descending">
       <label for="descending">Descending</label>
     </div>
+    <div>
+      <label for="limit">Limit:</label>
+      <input type="number" id="limit-input" name="limit" value="0"><br>
+      <label for="skip">Skip:</label>
+      <input type="number" id="skip-input" name="skip" value="0">
+    </div>
+    <div>
+      <button id="reset-btn" type="reset" value="Reset">Reset form</button>
+    </div>
+    </form>
   </div>
 </body>
 </html>

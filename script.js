@@ -16,6 +16,7 @@ function deselect() {
         checkboxes[i].checked = false;
     }
     $(fields).each(changeVisibilityOfInput);
+    document.getElementById("covid-form").reset();
 }
 
 function changeVisibilityOfInput() {
