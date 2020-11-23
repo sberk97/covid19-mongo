@@ -123,7 +123,7 @@
       <label for="active">Active:</label>
       <input type="number" id="active-input" name="active">
       <label for="active-display">Display?</label><input id="active-display" type="checkbox" checked/>
-      <label for="active-display-exists">Should not exists?</label><input id="active-display-exists" type="checkbox" />
+      <label for="active-exists">Should not exists?</label><input id="active-exists" type="checkbox" />
       <label for="active-advanced">Advanced query?</label><input id="active-advanced" type="checkbox"/>
       <div id="active-advanced-div" style="display:none;">
         <label for="active-gt">Greater than:</label>
