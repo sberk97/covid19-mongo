@@ -29,7 +29,7 @@ function changeVisibilityOfInput() {
         $("#" + this.id + "-div").hide();
         $("#" + this.id + "-input").val('');
         $("#" + this.id + "-display").prop('checked', true); 
-        $("#" + this.id + "-exists").prop('checked', true);
+        $("#" + this.id + "-exists").prop('checked', false);
         $(this).each(cleanAdvancedInputs);
     }
 }
