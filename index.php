@@ -31,6 +31,12 @@
   </div>
 
   <div class="main">
+    <h1>COVID-19 Cases Database</h1>
+    <p>Pick columns that you want to query by</p>
+    <p>Display? - If you want to query by that column but don't want to see it in the results</p>
+    <p>Should exists? - If this column shouldn't exists in the record</p>
+    <p>Advanced query? - If you want to query numerical values with "greater than" and "less than"</p>
+    <p>Leave empty input if you don't want to query by its value</p>
     <form id="covid-form">
     <div id="fips-div" style="display:none;">
       <label for="fips">FIPS:</label>
@@ -183,6 +189,7 @@
       <label for="descending">Descending</label>
     </div>
     <div>
+      <p>Leave 0 if you don't want to change anything</p>
       <label for="limit">Limit:</label>
       <input type="number" id="limit-input" name="limit" value="0"><br>
       <label for="skip">Skip:</label>
