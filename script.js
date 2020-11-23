@@ -4,7 +4,7 @@ var existsCheckbox = "#fips-exists, #admin2-exists, #province-state-exists, #cou
 $(fields).change(changeVisibilityOfInput);
 $(advFields).change(changeVisibilityOfInput);
 $(existsCheckbox).change(emptyAndLockInputField);
-$("#reset-btn").click(hideAllAdvanced);
+$("#reset-btn").click(resetForm);
 
 function selectAll() {
     var checkboxes = document.querySelectorAll('input[name=column-checkbox]');
@@ -45,6 +45,11 @@ function cleanAdvancedInputs() {
     } 
 }
 
+function resetForm() {
+    hideAllAdvanced();
+    $(existsCheckbox).each(enableFields);
+}
+
 function hideAllAdvanced() {
     var hasAdvanced = ["#confirmed-advanced", "#deaths-advanced", "#recovered-advanced", "#active-advanced", "#incidence-rate-advanced", "#case-fatality-ratio-advanced"];
     hasAdvanced.forEach(element => {
@@ -57,6 +62,8 @@ function emptyAndLockInputField() {
     if($(this).is(':checked')){
         $("#" + id + "-input").val('');
         $("#" + id + "-input").prop("disabled", true);
+        $('#sort-by').children('option[value="' + id + '"]').prop('disabled', true)
+        $("#sort-by").prop("selectedIndex", 0)
 
         if ($("#" + id + "-advanced").length != 0) {
             $("#" + id + "-advanced").prop('checked', false);
@@ -66,10 +73,17 @@ function emptyAndLockInputField() {
             $("#" + id + "-advanced").prop("disabled", true);
         }
     } else {
-        $("#" + id + "-input").prop("disabled", false);
+        $(this).each(enableFields);
+    }
+}
 
-        if ($("#" + id + "-advanced").length != 0) {
-            $("#" + id + "-advanced").prop("disabled", false);
-        }
+function enableFields() {
+    var id = this.id.substr(0, this.id.lastIndexOf('-')); 
+
+    $("#" + id + "-input").prop("disabled", false);
+    $('#sort-by').children('option[value="' + id + '"]').prop('disabled', false)
+
+    if ($("#" + id + "-advanced").length != 0) {
+        $("#" + id + "-advanced").prop("disabled", false);
     }
 }
