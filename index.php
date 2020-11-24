@@ -37,12 +37,14 @@
     <p>Should not exists? - If this column shouldn't exists in the record</p>
     <p>Advanced query? - If you want to query numerical values with "greater than" and "less than"</p>
     <p>Leave empty input if you don't want to query by its value</p>
-    <form id="covid-form">
-    <div id="fips-div" style="display:none;">
+    <!-- <form id="covid-form" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">  -->
+
+    <form id="covid-form"> 
+    <div id="fips-div" style="display:none;" method="post">
       <label for="fips">FIPS:</label>
       <input type="number" id="fips-input" name="fips">
-      <label for="fips-display">Display?</label><input id="fips-display" type="checkbox" checked/>
-      <label for="fips-exists">Should not exists?</label><input id="fips-exists" type="checkbox" />
+      <label for="fips-display">Display?</label><input id="fips-display" type="checkbox" name="fips-display" checked/>
+      <label for="fips-exists">Should not exists?</label><input id="fips-exists" name="fips-exists" type="checkbox" />
     </div>
     <div id="admin2-div" style="display:none;">
       <label for="admin2">Admin2:</label>
@@ -196,10 +198,11 @@
       <input type="number" id="skip-input" name="skip" value="0">
     </div>
     <div>
-      <button id="submit-btn" type="submit" value="reset">SUBMIT</button>
+      <button id="submit-btn" type="submit" value="submit">SUBMIT</button>
       <button id="reset-btn" type="reset" value="reset">Reset form</button>
     </div>
     </form>
+    <div id="txtHint"><b>Person info will be listed here...</b></div>
   </div>
 </body>
 </html>
