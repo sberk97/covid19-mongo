@@ -171,24 +171,23 @@
         <option value="incidence-rate">Incidence Rate</option>
         <option value="case-fatality-ratio">Case-Fatality Ratio</option>
       </select>
-      <input type="radio" id="ascending" name="asc" value="ascending" checked>
+      <input type="radio" id="ascending" name="asc-desc" value="ascending" checked>
       <label for="ascending">Ascending</label>
-      <input type="radio" id="descending" name="desc" value="descending">
+      <input type="radio" id="descending" name="asc-desc" value="descending">
       <label for="descending">Descending</label>
     </div>
     <div>
-      <p>Leave 0 if you don't want to limit/skip anything</p>
       <label for="limit">Limit:</label>
-      <input type="number" id="limit-input" name="limit" value="0"><br>
+      <input type="number" id="limit-input" name="limit"><br>
       <label for="skip">Skip:</label>
-      <input type="number" id="skip-input" name="skip" value="0">
+      <input type="number" id="skip-input" name="skip">
     </div>
     <div>
       <button id="submit-btn" type="submit" value="submit">SUBMIT</button>
       <button id="reset-btn" type="reset" value="reset">Reset form</button>
     </div>
     </form>
-    <div id="txtHint"><b>Person info will be listed here...</b></div>
+    <div id="results"><b>Results will display here...</b></div>
   </div>
 </body>
 </html>

@@ -75,8 +75,7 @@ $caseFatalityRatioDisplay = isset($_POST['case-fatality-ratio-display']);
 $caseFatalityRatioExists = isset($_POST['case-fatality-ratio-exists']);
 
 $sortBy = $_POST['sort-by'];
-$ascending = isset($_POST['asc']);
-$descending = isset($_POST['desc']);
+$ascending = $_POST['asc-desc'];
 $limit = $_POST['limit'];
 $skip = $_POST['skip'];
 
@@ -124,7 +123,6 @@ echo "caseFatalityRatio display: $caseFatalityRatioDisplay<br>";
 echo "caseFatalityRatio exists: $caseFatalityRatioExists<br>";
 echo "Sort by: $sortBy<br>";
 echo "Ascending: $ascending<br>";
-echo "Descending: $descending<br>";
 echo "Limit: $limit<br>";
 echo "Skip: $skip<br>";
 

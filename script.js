@@ -130,8 +130,7 @@ $("#covid-form").submit(function(event){
     // Callback handler that will be called on success
     request.done(function (response, textStatus, jqXHR){
         // Log a message to the console
-        console.log("Hooray, it worked!");
-        document.getElementById("txtHint").innerHTML = response;
+        document.getElementById("results").innerHTML = response;
     });
 
     // Callback handler that will be called on failure
