@@ -55,19 +55,19 @@ function changeVisibilityOfAdvancedInput() {
 function changeVisibilityOfAdvancedInputWithGivenId(id) {
     if ($("#" + id + "-advanced").is(':checked')){
         $("#" + id + "-advanced-div").show();
-        enableAdvancedFields(id);
+        enableAdvancedInputs(id);
     } else {
         $("#" + id + "-advanced-div").hide();
-        disableAdvancedFields(id);
+        disableAdvancedInputs(id);
     }
 }
 
-function enableAdvancedFields(id) {
+function enableAdvancedInputs(id) {
     $("#" + id + "-advanced-gt-input").prop("disabled", false);
     $("#" + id + "-advanced-lt-input").prop("disabled", false);
 }
 
-function disableAdvancedFields(id) {
+function disableAdvancedInputs(id) {
     $("#" + id + "-advanced-gt-input").prop("disabled", true);
     $("#" + id + "-advanced-lt-input").prop("disabled", true);
 }
@@ -100,7 +100,7 @@ function disableFieldsWithGivenId(id) {
 
     if ($("#" + id + "-advanced").length != 0) {
         $("#" + id + "-advanced").prop("disabled", true);
-        disableAdvancedFields(id);
+        disableAdvancedInputs(id);
     }
 }
 
