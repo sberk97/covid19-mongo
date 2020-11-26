@@ -27,6 +27,7 @@ function deselect() {
 function changeVisibilityOfInput() {
     if($(this).is(':checked')){
         $("#" + this.id + "-div").show();
+        $(existsCheckbox).each(enableFields);
     } else {
         $("#" + this.id + "-div").hide();
         $("#" + this.id + "-input").val('');
