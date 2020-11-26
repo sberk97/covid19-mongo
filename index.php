@@ -81,10 +81,10 @@
       <label for="confirmed-exists">Should not exists?</label><input id="confirmed-exists" name="confirmed-exists" type="checkbox" />
       <label for="confirmed-advanced">Advanced query?</label><input id="confirmed-advanced" name="confirmed-advanced" type="checkbox"/>
       <div id="confirmed-advanced-div" style="display:none;">
-        <label for="confirmed-gt">Greater than:</label>
-        <input type="number" id="confirmed-gt-input" name="confirmed-gt">
-        <label for="confirmed-lt">Less than:</label>
-        <input type="number" id="confirmed-lt-input" name="confirmed-lt">
+        <label for="confirmed-advanced-gt">Greater than:</label>
+        <input type="number" id="confirmed-advanced-gt-input" name="confirmed-advanced-gt">
+        <label for="confirmed-advanced-lt">Less than:</label>
+        <input type="number" id="confirmed-advanced-lt-input" name="confirmed-advanced-lt">
       </div>
     </div>
     <div id="deaths-div" style="display:none;">
@@ -93,10 +93,10 @@
       <label for="deaths-exists">Should not exists?</label><input id="deaths-exists" name="deaths-exists" type="checkbox" />
       <label for="deaths-advanced">Advanced query?</label><input id="deaths-advanced" name="deaths-advanced" type="checkbox"/>
       <div id="deaths-advanced-div" style="display:none;">
-        <label for="deaths-gt">Greater than:</label>
-        <input type="number" id="deaths-gt-input" name="deaths-gt">
-        <label for="deaths-lt">Less than:</label>
-        <input type="number" id="deaths-lt-input" name="deaths-lt">
+        <label for="deaths-advanced-gt">Greater than:</label>
+        <input type="number" id="deaths-advanced-gt-input" name="deaths-advanced-gt">
+        <label for="deaths-advanced-lt">Less than:</label>
+        <input type="number" id="deaths-advanced-lt-input" name="deaths-advanced-lt">
       </div>
     </div>
     <div id="recovered-div" style="display:none;">
@@ -105,10 +105,10 @@
       <label for="recovered-exists">Should not exists?</label><input id="recovered-exists" name="recovered-exists" type="checkbox" />
       <label for="recovered-advanced">Advanced query?</label><input id="recovered-advanced" name="recovered-advanced" type="checkbox"/>
       <div id="recovered-advanced-div" style="display:none;">
-        <label for="recovered-gt">Greater than:</label>
-        <input type="number" id="recovered-gt-input" name="recovered-gt">
-        <label for="recovered-lt">Less than:</label>
-        <input type="number" id="recovered-lt-input" name="recovered-lt">
+        <label for="recovered-advanced-gt">Greater than:</label>
+        <input type="number" id="recovered-advanced-gt-input" name="recovered-advanced-gt">
+        <label for="recovered-advanced-lt">Less than:</label>
+        <input type="number" id="recovered-advanced-lt-input" name="recovered-advanced-lt">
       </div>
     </div>
     <div id="active-div" style="display:none;">
@@ -117,10 +117,10 @@
       <label for="active-exists">Should not exists?</label><input id="active-exists" name="active-exists" type="checkbox" />
       <label for="active-advanced">Advanced query?</label><input id="active-advanced" name="active-advanced" type="checkbox"/>
       <div id="active-advanced-div" style="display:none;">
-        <label for="active-gt">Greater than:</label>
-        <input type="number" id="active-gt-input" name="active-gt">
-        <label for="active-lt">Less than:</label>
-        <input type="number" id="active-lt-input" name="active-lt">
+        <label for="active-advanced-gt">Greater than:</label>
+        <input type="number" id="active-advanced-gt-input" name="active-advanced-gt">
+        <label for="active-advanced-lt">Less than:</label>
+        <input type="number" id="active-advanced-lt-input" name="active-advanced-lt">
       </div>
     </div>
     <div id="combined-key-div" style="display:none;">
@@ -134,10 +134,10 @@
       <label for="incidence-rate-exists">Should not exists?</label><input id="incidence-rate-exists" name="incidence-rate-exists" type="checkbox" />
       <label for="incidence-rate-advanced">Advanced query?</label><input id="incidence-rate-advanced" name="incidence-rate-advanced" type="checkbox"/>
       <div id="incidence-rate-advanced-div" style="display:none;">
-        <label for="incidence-rate-gt">Greater than:</label>
-        <input type="number" id="incidence-rate-gt-input" name="incidence-rate-gt">
-        <label for="incidence-rate-lt">Less than:</label>
-        <input type="number" id="incidence-rate-lt-input" name="incidence-rate-lt">
+        <label for="incidence-rate-advanced-gt">Greater than:</label>
+        <input type="number" id="incidence-rate-advanced-gt-input" name="incidence-rate-advanced-gt">
+        <label for="incidence-rate-advanced-lt">Less than:</label>
+        <input type="number" id="incidence-rate-advanced-lt-input" name="incidence-rate-advanced-lt">
       </div>
     </div>
     <div id="case-fatality-ratio-div" style="display:none;">
@@ -146,10 +146,10 @@
       <label for="case-fatality-ratio-exists">Should not exists?</label><input id="case-fatality-ratio-exists" name="case-fatality-ratio-exists" type="checkbox" />
       <label for="case-fatality-ratio-advanced">Advanced query?</label><input id="case-fatality-ratio-advanced" name="case-fatality-ratio-advanced" type="checkbox"/>
       <div id="case-fatality-ratio-advanced-div" style="display:none;">
-        <label for="case-fatality-ratio-gt">Greater than:</label>
-        <input type="number" id="case-fatality-ratio-gt-input" name="case-fatality-ratio-gt">
-        <label for="case-fatality-ratio-lt">Less than:</label>
-        <input type="number" id="case-fatality-ratio-lt-input" name="case-fatality-ratio-lt">
+        <label for="case-fatality-ratio-advanced-gt">Greater than:</label>
+        <input type="number" id="case-fatality-ratio-advanced-gt-input" name="case-fatality-ratio-advanced-gt">
+        <label for="case-fatality-ratio-advanced-lt">Less than:</label>
+        <input type="number" id="case-fatality-ratio-advanced-lt-input" name="case-fatality-ratio-advanced-lt">
       </div>
     </div>
     <div>
