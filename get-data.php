@@ -32,6 +32,8 @@ function createFilter() {
   foreach ($fieldNames as $field) {
     if (!isset($_POST[$field . "-exists"]) && !empty($_POST[$field])) {
       $filter[str_replace('-', ' ', $field)] = $_POST[$field];
+    } else if(isset($_POST[$field . "-exists"])) {
+      $filter[str_replace('-', ' ', $field)] = ['$exists' => false];
     }
   }
   return $filter;
@@ -58,7 +60,7 @@ function createOptions() {
 
 function createProjection() {
   global $fieldNames;
-  $projection = [];
+  $projection = ["_id" => 0];
   foreach ($fieldNames as $field) {
     if (!isset($_POST[$field . "-exists"]) && !isset($_POST[$field . "-display"])) {
       $projection[str_replace('-', ' ', $field)] = 0;
