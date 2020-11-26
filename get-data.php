@@ -18,6 +18,85 @@ th {text-align: left;}
 <body>
 
 <?php
+$fieldNames = array("fips", "admin2", "province-state", "country-region", "last-update", "latitude", "longitude", "confirmed", "deaths", "recovered", "active", "combined-key", "incidence-rate", "case-fatality-ratio");
+
+function connectWithDb() {
+  $host="mongo:27017";
+  $manager = new MongoDB\Driver\Manager("mongodb://$host");
+  return $manager;
+}
+
+function createFilter() {
+  global $fieldNames;
+  $filter = [];
+  foreach ($fieldNames as $field) {
+    if (!isset($_POST[$field . "-exists"]) && !empty($_POST[$field])) {
+      $filter[str_replace('-', ' ', $field)] = $_POST[$field];
+    }
+  }
+  return $filter;
+}
+
+function createOptions() {
+  $options = [];
+  $projection = createProjection();
+  $sort = createSort();
+  if(!empty($projection)) {
+    $options['projection'] = $projection;
+  }
+  if(!empty($sort)) {
+    $options['sort'] = $sort;
+  }
+  if(!empty($_POST['limit']) && $_POST['limit'] >= 0) {
+    $options['limit'] = $_POST['limit'];
+  }
+  if(!empty($_POST['skip']) && $_POST['skip'] >= 0) {
+    $options['skip'] = $_POST['skip'];
+  }
+  return $options;
+}
+
+function createProjection() {
+  global $fieldNames;
+  $projection = [];
+  foreach ($fieldNames as $field) {
+    if (!isset($_POST[$field . "-exists"]) && !isset($_POST[$field . "-display"])) {
+      $projection[str_replace('-', ' ', $field)] = 0;
+    }
+  }
+  return $projection;
+}
+
+function createSort() {
+  $sort = [];
+  $howToSort = $_POST['asc-desc'] == "ascending" ? 1 : -1;
+  if (!empty($_POST['sort-by'])) {
+      $sort[str_replace('-', ' ', $_POST['sort-by'])] = $howToSort;
+  }
+  return $sort;
+}
+
+try {
+    $manager = connectWithDb();
+    if ($manager) {
+      $query = new MongoDB\Driver\Query(createFilter(), createOptions());
+      $dbname="covid19.covid19";
+		  $cursor = $manager->executeQuery($dbname, $query);
+		   
+      foreach ( $cursor as $r )
+      {
+      echo '<pre>';
+        var_dump( $r );
+      echo '</pre>';
+      }
+    }
+} catch(Exception $e){
+    echo  "<center><h1>Doesn't work</h1></center>";
+    print_r($e);
+    exit;
+}
+
+
 $fips = $_POST['fips'];
 $fipsDisplay = isset($_POST['fips-display']);
 $fipsExists = isset($_POST['fips-exists']);
