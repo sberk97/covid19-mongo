@@ -20,7 +20,6 @@ th {text-align: left;}
 <?php
 $fieldNames = array("fips", "admin2", "province-state", "country-region", "last-update", "latitude", "longitude", "confirmed", "deaths", "recovered", "active", "combined-key", "incidence-rate", "case-fatality-ratio");
 $fieldNamesInTable = array("FIPS", "Admin2", "Province State", "Country Region", "Last Update", "Latitude", "Longitude", "Confirmed", "Deaths", "Recovered", "Active", "Combined Key", "Incidence Rate", "Case-Fatality ratio");
-$fieldNamesInDb = array("fips", "admin2", "province state", "country region", "last update", "latitude", "longitude", "confirmed", "deaths", "recovered", "active", "combined key", "incidence rate", "case-fatality ratio");
 
 $table = "<table><tr>";
 function connectWithDb() {
@@ -37,9 +36,9 @@ function createFilter() {
   $i = 0;
   foreach ($fieldNames as $field) {
     if (!isset($_POST[$field . "-exists"]) && !empty($_POST[$field])) {
-      $filter[str_replace('-', ' ', $field)] = $_POST[$field];
+      $filter[$field] = $_POST[$field];
     } else if(isset($_POST[$field . "-exists"])) {
-      $filter[str_replace('-', ' ', $field)] = ['$exists' => false];
+      $filter[$field] = ['$exists' => false];
     }
     if (isset($_POST[$field . "-display"])) {
       $table .= "<th>" . $fieldNamesInTable[$i] . "</th>";
@@ -74,7 +73,7 @@ function createProjection() {
   $projection = ["_id" => 0];
   foreach ($fieldNames as $field) {
     if (!isset($_POST[$field . "-exists"]) && !isset($_POST[$field . "-display"])) {
-      $projection[str_replace('-', ' ', $field)] = 0;
+      $projection[$field] = 0;
     }
   }
   return $projection;
@@ -84,7 +83,7 @@ function createSort() {
   $sort = [];
   $howToSort = $_POST['asc-desc'] == "ascending" ? 1 : -1;
   if (!empty($_POST['sort-by'])) {
-      $sort[str_replace('-', ' ', $_POST['sort-by'])] = $howToSort;
+      $sort[$_POST['sort-by']] = $howToSort;
   }
   return $sort;
 }
@@ -108,13 +107,13 @@ function returnTable($cursor) {
 // <th>Case-Fatality Ratio</th>
 // </tr>";
 global $table;
-global $fieldNamesInDb;
+global $fieldNames;
 echo $table;
 
 foreach ( $cursor as $r ) {
   echo "<tr>";
-  foreach ($fieldNamesInDb as $field) {
-    if(isset($_POST[str_replace(' ', '-', $field) . "-display"])) {
+  foreach ($fieldNames as $field) {
+    if(isset($_POST[$field . "-display"])) {
       echo "<td>" . $r -> {$field} . "</td>";
     }
   }
