@@ -144,7 +144,7 @@ $("#covid-form").submit(function(event){
     var $form = $(this);
 
     // Let's select and cache all the fields
-    var $inputs = $form.find("input, select, button, textarea");
+    //var $inputs = $form.find("input, select, button, textarea");
 
     // Serialize the data in the form
     var serializedData = $form.serialize();
@@ -154,7 +154,7 @@ $("#covid-form").submit(function(event){
     // Disabled form elements will not be serialized.
     //$inputs.prop("disabled", true);
 
-    // Fire off the request to /form.php
+    // Fire off the request to /get-data.php
     request = $.ajax({
         url: "/get-data.php",
         type: "post",
@@ -163,7 +163,6 @@ $("#covid-form").submit(function(event){
 
     // Callback handler that will be called on success
     request.done(function (response, textStatus, jqXHR){
-        // Log a message to the console
         document.getElementById("results").innerHTML = response;
     });
 
