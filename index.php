@@ -135,32 +135,34 @@
       ],
     ];
 
-    foreach ($fieldNamesWithSettings as $key => $value) {
-      $output = "<div id='$key-div' style='display:none;'>";
-      $output .= "<label for='$key'>" . $value["on-screen"] . ":</label><input type='" . $value["input-type"] . "' id='$key-input' name='$key' disabled>";
+    foreach ($fieldNamesWithSettings as $fieldName => $settings) {
+      $fieldhtml = "<div id='$fieldName-div' style='display:none;'>";
+      $fieldhtml .= "<label for='$fieldName'>" . $settings["on-screen"] . ":</label><input type='" . $settings["input-type"] . "' id='$fieldName-input' name='$fieldName' disabled>";
       
-      if ($value["display"]) {
-        $output .= "<label for='$key-display'>Display?</label><input id='$key-display' name='$key-display' type='checkbox' disabled checked/>";
+      if ($settings["display"]) {
+        $fieldhtml .= "<label for='$fieldName-display'>Display?</label><input id='$fieldName-display' name='$fieldName-display' type='checkbox' disabled checked/>";
       }
 
-      if ($value["exists"]) {
-        $output .= "<label for='$key-exists'>Should not exists?</label><input id='$key-exists' name='$key-exists' type='checkbox' disabled />";
+      if ($settings["exists"]) {
+        $fieldhtml .= "<label for='$fieldName-exists'>Should not exists?</label><input id='$fieldName-exists' name='$fieldName-exists' type='checkbox' disabled />";
       }
 
-      if ($value["advanced"]) {
-        $output .= "<label for='$key-advanced'>Advanced query?</label><input id='$key-advanced' name='$key-advanced' type='checkbox' disabled/>";
-        $output .= "<div id='$key-advanced-div' style='display:none;'>
-          <label for='$key-advanced-gt'>Greater than:</label>
-          <input type='number' id='$key-advanced-gt-input' name='$key-advanced-gt'>
-          <label for='$key-advanced-lt'>Less than:</label>
-          <input type='number' id='$key-advanced-lt-input' name='$key-advanced-lt'>
+      if ($settings["advanced"]) {
+        $fieldhtml .= "<label for='$fieldName-advanced'>Advanced query?</label><input id='$fieldName-advanced' name='$fieldName-advanced' type='checkbox' disabled/>";
+        $fieldhtml .= "<div id='$fieldName-advanced-div' style='display:none;'>
+          <label for='$fieldName-advanced-gt'>Greater than:</label>
+          <input type='number' id='$fieldName-advanced-gt-input' name='$fieldName-advanced-gt'>
+          <label for='$fieldName-advanced-lt'>Less than:</label>
+          <input type='number' id='$fieldName-advanced-lt-input' name='$fieldName-advanced-lt'>
         </div>";
       }
       
-      $output .= "</div>";
+      $fieldhtml .= "</div>";
 
-      echo $output;
+      echo $fieldhtml;
     }
+
+
 
     ?>
     <div>
