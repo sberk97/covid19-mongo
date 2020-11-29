@@ -98,7 +98,11 @@ foreach ( $cursor as $r ) {
   echo "<tr>";
   foreach ($fieldNames as $field) {
     if(isset($_POST[$field . "-display"])) {
-      echo "<td>" . $r -> {$field} . "</td>";
+      if($field == "last-update") {
+        echo "<td>" . ($r -> {$field}) -> toDateTime() -> format('d-m-Y\ H:i:s') . "</td>";
+      } else {
+        echo "<td>" . $r -> {$field} . "</td>";
+      }
     }
   }
   echo "</tr>";
