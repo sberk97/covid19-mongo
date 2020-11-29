@@ -12,20 +12,14 @@
 <body>
   <div class="sidenav">
     <div class="column-description">Click to select a column</div>
-    <input id="fips" type="checkbox" name="column-checkbox"/><label for="fips">FIPS</label>
-    <input id="admin2" type="checkbox" name="column-checkbox"/><label for="admin2">Admin2</label>
-    <input id="province-state" type="checkbox" name="column-checkbox"/><label for="province-state">Province State</label>
-    <input id="country-region" type="checkbox" name="column-checkbox"/><label for="country-region">Country Region</label>
-    <input id="last-update" type="checkbox" name="column-checkbox"/><label for="last-update">Last Update</label>
-    <input id="latitude" type="checkbox" name="column-checkbox"/><label for="latitude">Latitude</label>
-    <input id="longitude" type="checkbox" name="column-checkbox"/><label for="longitude">Longitude</label>
-    <input id="confirmed" type="checkbox" name="column-checkbox"/><label for="confirmed">Confirmed</label>
-    <input id="deaths" type="checkbox" name="column-checkbox"/><label for="deaths">Deaths</label>
-    <input id="recovered" type="checkbox" name="column-checkbox"/><label for="recovered">Recovered</label>
-    <input id="active" type="checkbox" name="column-checkbox"/><label for="active">Active</label>
-    <input id="combined-key" type="checkbox" name="column-checkbox"/><label for="combined-key">Combined Key</label>
-    <input id="incidence-rate" type="checkbox" name="column-checkbox"/><label for="incidence-rate">Incidence Rate</label>
-    <input id="case-fatality-ratio" type="checkbox" name="column-checkbox"/><label for="case-fatality-ratio">Case-Fatality Ratio</label>
+    <?php
+    $fieldNames = array("fips", "admin2", "province-state", "country-region", "last-update", "latitude", "longitude", "confirmed", "deaths", "recovered", "active", "combined-key", "incidence-rate", "case-fatality-ratio");
+    $fieldNamesOnScreen = array("FIPS", "Admin2", "Province State", "Country Region", "Last Update", "Latitude", "Longitude", "Confirmed", "Deaths", "Recovered", "Active", "Combined Key", "Incidence Rate", "Case-Fatality ratio");
+    
+    for ($i=0; $i < count($fieldNames); $i++) { 
+      echo "<input id='$fieldNames[$i]' type='checkbox' name='column-checkbox'/><label for='$fieldNames[$i]'>$fieldNamesOnScreen[$i]</label>";
+    }
+    ?>
     <button class="select-btn" onClick="selectAll();">Select all</button>
     <button class="select-btn" onClick="deselect();">Deselect</button>
   </div>
