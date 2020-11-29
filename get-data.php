@@ -34,7 +34,7 @@ function createFilter() {
   $i = 0;
   foreach ($fieldNamesWithSettings as $fieldName => $settings) {
     if (!isset($_POST[$fieldName . "-exists"]) && !empty($_POST[$fieldName])) {
-      $filter[$fieldName] = buildFilterForField($fieldName);
+      $filter[$fieldName] = buildFilterForField($fieldName, $settings["input-type"]);
     } else if(isset($_POST[$fieldName . "-exists"])) {
       $filter[$fieldName] = ['$exists' => false];
     } else if (isset($_POST[$fieldName . "-notempty"])) {
@@ -49,8 +49,8 @@ function createFilter() {
   return $filter;
 }
 
-function buildFilterForField($fieldName) {
-  if($fieldName == "last-update") {
+function buildFilterForField($fieldName, $inputType) {
+  if ($inputType == "date") {
     $givenDate = new DateTime($_POST[$fieldName]);
     $nextDay = clone $givenDate;
     $nextDay->add(new DateInterval('P1D'));
@@ -110,7 +110,7 @@ function returnTable($cursor) {
     echo "<tr>";
     foreach ($fieldNamesWithSettings as $fieldName => $settings) {
       if(isset($_POST[$fieldName . "-display"])) {
-        if($fieldName == "last-update") {
+        if($settings["input-type"] == "date") {
           echo "<td>" . ($r -> {$fieldName}) -> toDateTime() -> format('d-m-Y\ H:i:s') . "</td>";
         } else {
           echo "<td>" . $r -> {$fieldName} . "</td>";
