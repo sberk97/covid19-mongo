@@ -37,7 +37,7 @@ function createFilter() {
   $i = 0;
   foreach ($fieldNames as $field) {
     if (!isset($_POST[$field . "-exists"]) && !empty($_POST[$field])) {
-      $filter[$field] = $_POST[$field];
+      $filter[$field] = buildFilterForField($field);
     } else if(isset($_POST[$field . "-exists"])) {
       $filter[$field] = ['$exists' => false];
     } else if (isset($_POST[$field . "-notempty"])) {
@@ -50,6 +50,18 @@ function createFilter() {
   }
   $table .= "</tr>";
   return $filter;
+}
+
+function buildFilterForField($field) {
+  if($field == "last-update") {
+    $givenDate = new DateTime($_POST[$field]);
+    $nextDay = clone $givenDate;
+    $nextDay->add(new DateInterval('P1D'));
+    $givenDateMongoDB = new MongoDB\BSON\UTCDateTime($givenDate->getTimestamp()*1000);
+    $nextDayMongoDB = new MongoDB\BSON\UTCDateTime($nextDay->getTimestamp()*1000);
+    return ['$gte' => $givenDateMongoDB, '$lt' => $nextDayMongoDB];
+  }
+  return $_POST[$field];
 }
 
 function createOptions() {
