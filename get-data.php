@@ -22,6 +22,7 @@ $fieldNames = array("fips", "admin2", "province-state", "country-region", "last-
 $fieldNamesInTable = array("FIPS", "Admin2", "Province State", "Country Region", "Last Update", "Latitude", "Longitude", "Confirmed", "Deaths", "Recovered", "Active", "Combined Key", "Incidence Rate", "Case-Fatality ratio");
 
 $table = "<table><tr>";
+
 function connectWithDb() {
   $host="mongo:27017";
   $manager = new MongoDB\Driver\Manager("mongodb://$host");
@@ -89,23 +90,6 @@ function createSort() {
 }
 
 function returnTable($cursor) {
-// echo "<table>
-// <tr>
-// <th>FIPS</th>
-// <th>Admin2</th>
-// <th>Province State</th>
-// <th>Country Region</th>
-// <th>Last Update</th>
-// <th>Latitude</th>
-// <th>Longitude</th>
-// <th>Confirmed</th>
-// <th>Deaths</th>
-// <th>Recovered</th>
-// <th>Active</th>
-// <th>Combined Key</th>
-// <th>Incidence Rate</th>
-// <th>Case-Fatality Ratio</th>
-// </tr>";
 global $table;
 global $fieldNames;
 echo $table;
