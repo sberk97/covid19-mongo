@@ -40,6 +40,8 @@ function createFilter() {
       $filter[$field] = $_POST[$field];
     } else if(isset($_POST[$field . "-exists"])) {
       $filter[$field] = ['$exists' => false];
+    } else if (isset($_POST[$field . "-notempty"])) {
+      $filter[$field] = ['$exists' => true];
     }
     if (isset($_POST[$field . "-display"])) {
       $table .= "<th>" . $fieldNamesInTable[$i] . "</th>";
