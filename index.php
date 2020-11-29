@@ -13,27 +13,6 @@
   <div class="sidenav">
     <div class="column-description">Click to select a column</div>
     <?php
-    $fieldNames = array("fips", "admin2", "province-state", "country-region", "last-update", "latitude", "longitude", "confirmed", "deaths", "recovered", "active", "combined-key", "incidence-rate", "case-fatality-ratio");
-    $fieldNamesOnScreen = array("FIPS", "Admin2", "Province State", "Country Region", "Last Update", "Latitude", "Longitude", "Confirmed", "Deaths", "Recovered", "Active", "Combined Key", "Incidence Rate", "Case-Fatality ratio");
-    
-    for ($i=0; $i < count($fieldNames); $i++) { 
-      echo "<input id='$fieldNames[$i]' type='checkbox' name='column-checkbox'/><label for='$fieldNames[$i]'>$fieldNamesOnScreen[$i]</label>";
-    }
-    ?>
-    <button class="select-btn" onClick="selectAll();">Select all</button>
-    <button class="select-btn" onClick="deselect();">Deselect</button>
-  </div>
-
-  <div class="main">
-    <h1>COVID-19 Cases Database</h1>
-    <p>Pick columns that you want to query by</p>
-    <p>Display? - If you want to query by that column but don't want to see it in the results</p>
-    <p>Should not exists? - If this column shouldn't exists in the record</p>
-    <p>Advanced query? - If you want to query numerical values with "greater than" and "less than"</p>
-    <p>Leave empty input if you don't want to query by its value</p>
-
-    <form id="covid-form">
-    <?php
     $fieldNamesWithSettings = [
       "fips" => [
         "display" => true,
@@ -134,7 +113,25 @@
         "input-type" => "number"
       ],
     ];
+    
+    foreach ($fieldNamesWithSettings as $fieldName => $settings) {
+      echo "<input id='$fieldName' type='checkbox' name='column-checkbox'/><label for='$fieldName'>" . $settings["on-screen"] . "</label>";
+    }
+    ?>
+    <button class="select-btn" onClick="selectAll();">Select all</button>
+    <button class="select-btn" onClick="deselect();">Deselect</button>
+  </div>
 
+  <div class="main">
+    <h1>COVID-19 Cases Database</h1>
+    <p>Pick columns that you want to query by</p>
+    <p>Display? - If you want to query by that column but don't want to see it in the results</p>
+    <p>Should not exists? - If this column shouldn't exists in the record</p>
+    <p>Advanced query? - If you want to query numerical values with "greater than" and "less than"</p>
+    <p>Leave empty input if you don't want to query by its value</p>
+
+    <form id="covid-form">
+    <?php
     foreach ($fieldNamesWithSettings as $fieldName => $settings) {
       $fieldhtml = "<div id='$fieldName-div' style='display:none;'>";
       $fieldhtml .= "<label for='$fieldName'>" . $settings["on-screen"] . ":</label><input type='" . $settings["input-type"] . "' id='$fieldName-input' name='$fieldName' disabled>";
@@ -161,28 +158,16 @@
 
       echo $fieldhtml;
     }
-
-
-
     ?>
     <div>
       <label for="sort-by">Sort by:</label>
       <select name="sort-by" id="sort-by">
         <option hidden disabled selected value> -- select an option -- </option>
-        <option value="fips">FIPS</option>
-        <option value="admin2">Admin2</option>
-        <option value="province-state">Province State</option>
-        <option value="country-region">Country Region</option>
-        <option value="last-update">Last Update</option>
-        <option value="latitude">Latitude</option>
-        <option value="longitude">Longitude</option>
-        <option value="confirmed">Confirmed</option>
-        <option value="deaths">Deaths</option>
-        <option value="recovered">Recovered</option>
-        <option value="active">Active</option>
-        <option value="combined-key">Combined Key</option>
-        <option value="incidence-rate">Incidence Rate</option>
-        <option value="case-fatality-ratio">Case-Fatality Ratio</option>
+        <?php
+          foreach ($fieldNamesWithSettings as $fieldName => $settings) {
+            echo "<option value='$key'>" . $settings["on-screen"] . "</option>";
+          }
+        ?>
       </select>
       <input type="radio" id="ascending" name="asc-desc" value="ascending" checked>
       <label for="ascending">Ascending</label>
