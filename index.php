@@ -165,7 +165,7 @@
         <option hidden disabled selected value> -- select an option -- </option>
         <?php
           foreach ($fieldNamesWithSettings as $fieldName => $settings) {
-            echo "<option value='$key'>" . $settings["on-screen"] . "</option>";
+            echo "<option value='$fieldName' disabled>" . $settings["on-screen"] . "</option>";
           }
         ?>
       </select>

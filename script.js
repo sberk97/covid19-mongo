@@ -1,9 +1,12 @@
 var fields = "#fips, #admin2, #province-state, #country-region, #last-update, #latitude, #longitude, #confirmed, #deaths, #recovered, #active, #combined-key, #incidence-rate, #case-fatality-ratio";
-var advFields = "#confirmed-advanced, #deaths-advanced, #recovered-advanced, #active-advanced, #incidence-rate-advanced, #case-fatality-ratio-advanced";
+var displayCheckbox = "#fips-display, #admin2-display, #province-state-display, #country-region-display, #last-update-display, #latitude-display, #longitude-display, #confirmed-display, #deaths-display, #recovered-display, #active-display, #combined-key-display, #incidence-rate-display, #case-fatality-ratio-display";
 var existsCheckbox = "#fips-exists, #admin2-exists, #province-state-exists, #country-region-exists, #last-update-exists, #latitude-exists, #longitude-exists, #confirmed-exists, #deaths-exists, #recovered-exists, #active-exists, #combined-key-exists, #incidence-rate-exists, #case-fatality-ratio-exists";
+var advFields = "#confirmed-advanced, #deaths-advanced, #recovered-advanced, #active-advanced, #incidence-rate-advanced, #case-fatality-ratio-advanced";
+
 $(fields).change(changeVisibilityOfInput);
+$(displayCheckbox).change(changeVisibilityOfFieldInSort);
+$(existsCheckbox).change(disableFieldWhenShouldNotExists);
 $(advFields).change(changeVisibilityOfAdvancedInput);
-$(existsCheckbox).change(disableFieldsWhenShouldNotExists);
 $("#reset-btn").click(resetForm);
 
 function selectAll() {
@@ -27,15 +30,15 @@ function deselect() {
 function changeVisibilityOfInput() {
     if ($(this).is(':checked')){
         $("#" + this.id + "-div").show();
-        enableFieldsWithGivenId(this.id);
+        enableFieldWithGivenId(this.id);
     } else {
         $("#" + this.id + "-div").hide();
-        $(this).each(setInputsToDefault);
-        disableFieldsWithGivenId(this.id);
+        $(this).each(setInputToDefault);
+        disableFieldWithGivenId(this.id);
     }
 }
 
-function setInputsToDefault() {
+function setInputToDefault() {
     $("#" + this.id + "-input").val('');
     $("#" + this.id + "-display").prop('checked', true); 
     $("#" + this.id + "-exists").prop('checked', false);
@@ -55,19 +58,19 @@ function changeVisibilityOfAdvancedInput() {
 function changeVisibilityOfAdvancedInputWithGivenId(id) {
     if ($("#" + id + "-advanced").is(':checked')){
         $("#" + id + "-advanced-div").show();
-        enableAdvancedInputs(id);
+        enableAdvancedInput(id);
     } else {
         $("#" + id + "-advanced-div").hide();
-        disableAdvancedInputs(id);
+        disableAdvancedInput(id);
     }
 }
 
-function enableAdvancedInputs(id) {
+function enableAdvancedInput(id) {
     $("#" + id + "-advanced-gt-input").prop("disabled", false);
     $("#" + id + "-advanced-lt-input").prop("disabled", false);
 }
 
-function disableAdvancedInputs(id) {
+function disableAdvancedInput(id) {
     $("#" + id + "-advanced-gt-input").prop("disabled", true);
     $("#" + id + "-advanced-lt-input").prop("disabled", true);
 }
@@ -78,44 +81,63 @@ function resetForm() {
     $(fields).each(enableFields);
 }
 
-function disableFieldsWhenShouldNotExists() {
+function disableFieldWhenShouldNotExists() {
     var id = getIdOutOfString(this.id);
     if ($(this).is(':checked')){
-        disableFieldsWithGivenId(id);
+        disableFieldWithGivenId(id);
         $("#" + id + "-exists").prop("disabled", false);
     } else {
-        enableFieldsWithGivenId(id);
+        enableFieldWithGivenId(id);
         if ($("#" + id + "-advanced").is(':checked')) { 
             changeVisibilityOfAdvancedInputWithGivenId(id);
         }
     }
 }
 
-function disableFieldsWithGivenId(id) {
+function disableFieldWithGivenId(id) {
     $("#" + id + "-input").prop("disabled", true);
     $("#" + id + "-display").prop("disabled", true);
     $("#" + id + "-exists").prop("disabled", true);
-    $('#sort-by').children('option[value="' + id + '"]').prop('disabled', true)
-    $("#sort-by").prop("selectedIndex", 0)
+    disableOptionInSortWithGivenId(id);
 
     if ($("#" + id + "-advanced").length != 0) {
         $("#" + id + "-advanced").prop("disabled", true);
-        disableAdvancedInputs(id);
+        disableAdvancedInput(id);
     }
 }
 
 function enableFields() {
-    enableFieldsWithGivenId(this.id);
+    enableFieldWithGivenId(this.id);
 }
 
-function enableFieldsWithGivenId(id) {
+function enableFieldWithGivenId(id) {
     $("#" + id + "-input").prop("disabled", false);
     $("#" + id + "-display").prop("disabled", false);
     $("#" + id + "-exists").prop("disabled", false);
-    $('#sort-by').children('option[value="' + id + '"]').prop('disabled', false)
+    enableOptionInSortWithGivenId(id);
 
     if ($("#" + id + "-advanced").length != 0) {
         $("#" + id + "-advanced").prop("disabled", false);
+    }
+}
+
+function changeVisibilityOfFieldInSort() {
+    var id = getIdOutOfString(this.id);
+    if ($(this).is(':checked')){
+        enableOptionInSortWithGivenId(id);
+    } else {
+        disableOptionInSortWithGivenId(id);
+    }
+}
+
+function enableOptionInSortWithGivenId(id) {
+    $('#sort-by').children('option[value="' + id + '"]').prop('disabled', false)
+}
+
+function disableOptionInSortWithGivenId(id) {
+    $('#sort-by').children('option[value="' + id + '"]').prop('disabled', true)
+    if($('option[value="' + id + '"]').is(':selected')) {
+        $("#sort-by").prop("selectedIndex", 0);
     }
 }
 
