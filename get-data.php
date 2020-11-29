@@ -110,16 +110,21 @@ function returnTable($cursor) {
     echo "<tr>";
     foreach ($fieldNamesWithSettings as $fieldName => $settings) {
       if(isset($_POST[$fieldName . "-display"])) {
-        if($settings["input-type"] == "date") {
-          echo "<td>" . ($r -> {$fieldName}) -> toDateTime() -> format('d-m-Y\ H:i:s') . "</td>";
-        } else {
-          echo "<td>" . $r -> {$fieldName} . "</td>";
-        }
+        $value = $r -> {$fieldName};
+        echo "<td>" . prepareValueToDisplay($value, $settings["input-type"]) . "</td>";
       }
     }
     echo "</tr>";
   }
   echo "</table>";
+}
+
+function prepareValueToDisplay($value, $inputType) {
+  if ($inputType == "date") {
+    return $value -> toDateTime() -> format('d-m-Y\ H:i:s');
+  }
+
+  return $value;
 }
 
 try {
