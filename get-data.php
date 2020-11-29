@@ -17,9 +17,7 @@ th {text-align: left;}
 </head>
 <body>
 
-<?php
-$fieldNames = array("fips", "admin2", "province-state", "country-region", "last-update", "latitude", "longitude", "confirmed", "deaths", "recovered", "active", "combined-key", "incidence-rate", "case-fatality-ratio");
-$fieldNamesInTable = array("FIPS", "Admin2", "Province State", "Country Region", "Last Update", "Latitude", "Longitude", "Confirmed", "Deaths", "Recovered", "Active", "Combined Key", "Incidence Rate", "Case-Fatality ratio");
+<?php require 'field-settings.php';
 
 $table = "<table><tr>";
 
@@ -30,26 +28,37 @@ function connectWithDb() {
 }
 
 function createFilter() {
-  global $fieldNames;
-  global $fieldNamesInTable;
   global $table;
+  global $fieldNamesWithSettings;
   $filter = [];
   $i = 0;
-  foreach ($fieldNames as $field) {
-    if (!isset($_POST[$field . "-exists"]) && !empty($_POST[$field])) {
-      $filter[$field] = $_POST[$field];
-    } else if(isset($_POST[$field . "-exists"])) {
-      $filter[$field] = ['$exists' => false];
-    } else if (isset($_POST[$field . "-notempty"])) {
-      $filter[$field] = ['$exists' => true];
+  foreach ($fieldNamesWithSettings as $fieldName => $settings) {
+    if (!isset($_POST[$fieldName . "-exists"]) && !empty($_POST[$fieldName])) {
+      $filter[$fieldName] = buildFilterForField($fieldName, $settings["input-type"]);
+    } else if(isset($_POST[$fieldName . "-exists"])) {
+      $filter[$fieldName] = ['$exists' => false];
+    } else if (isset($_POST[$fieldName . "-notempty"])) {
+      $filter[$fieldName] = ['$exists' => true];
     }
-    if (isset($_POST[$field . "-display"])) {
-      $table .= "<th>" . $fieldNamesInTable[$i] . "</th>";
+    if (isset($_POST[$fieldName . "-display"])) {
+      $table .= "<th>" . $settings["on-screen"] . "</th>";
     }
     $i++;
   }
   $table .= "</tr>";
   return $filter;
+}
+
+function buildFilterForField($fieldName, $inputType) {
+  if ($inputType == "date") {
+    $givenDate = new DateTime($_POST[$fieldName]);
+    $nextDay = clone $givenDate;
+    $nextDay->add(new DateInterval('P1D'));
+    $givenDateMongoDB = new MongoDB\BSON\UTCDateTime($givenDate->getTimestamp()*1000);
+    $nextDayMongoDB = new MongoDB\BSON\UTCDateTime($nextDay->getTimestamp()*1000);
+    return ['$gte' => $givenDateMongoDB, '$lt' => $nextDayMongoDB];
+  }
+  return $_POST[$fieldName];
 }
 
 function createOptions() {
@@ -72,11 +81,12 @@ function createOptions() {
 }
 
 function createProjection() {
-  global $fieldNames;
+  global $fieldNamesWithSettings;
+
   $projection = ["_id" => 0];
-  foreach ($fieldNames as $field) {
-    if (!isset($_POST[$field . "-exists"]) && !isset($_POST[$field . "-display"])) {
-      $projection[$field] = 0;
+  foreach ($fieldNamesWithSettings as $fieldName => $settings) {
+    if (!isset($_POST[$fieldName . "-exists"]) && !isset($_POST[$fieldName . "-display"])) {
+      $projection[$fieldName] = 0;
     }
   }
   return $projection;
@@ -92,24 +102,29 @@ function createSort() {
 }
 
 function returnTable($cursor) {
-global $table;
-global $fieldNames;
-echo $table;
+  global $fieldNamesWithSettings;
+  global $table;
+  echo $table;
 
-foreach ( $cursor as $r ) {
-  echo "<tr>";
-  foreach ($fieldNames as $field) {
-    if(isset($_POST[$field . "-display"])) {
-      if($field == "last-update") {
-        echo "<td>" . ($r -> {$field}) -> toDateTime() -> format('d-m-Y\ H:i:s') . "</td>";
-      } else {
-        echo "<td>" . $r -> {$field} . "</td>";
+  foreach ( $cursor as $r ) {
+    echo "<tr>";
+    foreach ($fieldNamesWithSettings as $fieldName => $settings) {
+      if(isset($_POST[$fieldName . "-display"])) {
+        $value = $r -> {$fieldName};
+        echo "<td>" . prepareValueToDisplay($value, $settings["input-type"]) . "</td>";
       }
     }
+    echo "</tr>";
   }
-  echo "</tr>";
+  echo "</table>";
 }
-echo "</table>";
+
+function prepareValueToDisplay($value, $inputType) {
+  if ($inputType == "date") {
+    return $value -> toDateTime() -> format('d-m-Y\ H:i:s');
+  }
+
+  return $value;
 }
 
 try {
