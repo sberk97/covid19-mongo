@@ -149,7 +149,6 @@ function disableOptionInSortWithGivenId(id) {
 function changeStateOfNotExist() {
     var id = getIdOutOfString(this.id);
     if ($(this).is(':checked')){
-        console.log("#" + id + "-exists");
         $("#" + id + "-exists").prop("disabled", true);
     } else {
         $("#" + id + "-exists").prop("disabled", false);
