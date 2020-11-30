@@ -1,0 +1,116 @@
+1. List the following details (FIPS, Provinces State, Lat, Long, Confirmed, Deaths, Recovered, Active) where the death cases are less than 850 and greater than 800 worldwide.
+SELECT
+us_county.fips AS "FIPS", 
+province_state.name AS "Province State", 
+location.latitude AS "Latitude", 
+location.longitude AS "Longitude", 
+covid_report.confirmed AS "Confirmed", 
+covid_report.deaths AS "Deaths", 
+covid_report.recovered AS "Recovered", 
+confirmed-deaths-recovered AS "Active"
+from covid_report
+
+JOIN location ON covid_report.fk_location_id = location.id
+left JOIN us_county ON us_county.id <=> location.fk_us_county_id
+left JOIN province_state ON province_state.id <=> location.fk_province_state_id
+
+WHERE Deaths > 800 AND Deaths < 850
+
+2. Find the number of records and the total numbers of the confirmed cases, the death cases, and the recovered cases within the country region of Denmark.
+SELECT 
+COUNT(country.name) AS "Number of records",
+country.name AS "Country Region",
+SUM(covid_report.confirmed) AS "Confirmed", 
+SUM(covid_report.deaths) AS "Deaths", 
+SUM(covid_report.recovered) AS "Recovered"
+from covid_report
+
+JOIN location ON covid_report.fk_location_id = location.id
+JOIN country ON country.id = location.fk_country_id
+
+WHERE country.name = "Denmark"
+GROUP BY `Country Region`
+
+3. List all the details that feature COVID-19 cases in Greece and Cyprus
+SELECT 
+us_county.fips AS "FIPS", 
+us_county.admin2 AS "Admin2", 
+province_state.name AS "Province State", 
+country.name AS "Country Region", 
+covid_report.last_update AS "Last Update", 
+location.latitude AS "Latitude", 
+location.longitude AS "Longitude", 
+covid_report.confirmed AS "Confirmed", 
+covid_report.deaths AS "Deaths", 
+covid_report.recovered AS "Recovered", 
+confirmed-deaths-recovered AS "Active", 
+CONCAT_WS(', ', us_county.admin2, province_state.name, country.name) AS "Combined Key", 
+covid_report.incidence_rate AS "Incidence Rate",
+ROUND(CAST(deaths AS DOUBLE) / confirmed * 100, 9) AS "Case-Fatality Ratio" 
+from covid_report
+
+JOIN location ON covid_report.fk_location_id = location.id
+left JOIN us_county ON us_county.id <=> location.fk_us_county_id
+left JOIN province_state ON province_state.id <=> location.fk_province_state_id
+JOIN country ON country.id = location.fk_country_id
+
+WHERE
+country.name = "Greece" OR country.name = "Cyprus"
+
+4. List 10 records’ details that feature COVID-19 cases where both Lat and Long have no values.
+SELECT 
+us_county.fips AS "FIPS", 
+us_county.admin2 AS "Admin2", 
+province_state.name AS "Province State", 
+country.name AS "Country Region", 
+covid_report.last_update AS "Last Update", 
+location.latitude AS "Latitude", 
+location.longitude AS "Longitude", 
+covid_report.confirmed AS "Confirmed", 
+covid_report.deaths AS "Deaths", 
+covid_report.recovered AS "Recovered", 
+confirmed-deaths-recovered AS "Active", 
+CONCAT_WS(', ', us_county.admin2, province_state.name, country.name) AS "Combined Key", 
+covid_report.incidence_rate AS "Incidence Rate",
+ROUND(CAST(deaths AS DOUBLE) / confirmed * 100, 9) AS "Case-Fatality Ratio"
+from covid_report
+
+JOIN location ON covid_report.fk_location_id = location.id
+left JOIN us_county ON us_county.id <=> location.fk_us_county_id
+left JOIN province_state ON province_state.id <=> location.fk_province_state_id
+JOIN country ON country.id = location.fk_country_id
+
+WHERE
+location.latitude is NULL AND location.longitude is NULL
+LIMIT 10
+
+5. Find out the top 10 countries details with highest Confirmed cases and Death cased.
+SELECT 
+country.name AS "Country Region",
+COUNT(country.name) AS "Count",
+MAX(covid_report.confirmed) AS "Confirmed", 
+MAX(covid_report.deaths) AS "Deaths"
+from covid_report
+
+JOIN location ON covid_report.fk_location_id = location.id
+JOIN country ON country.id = location.fk_country_id
+
+GROUP BY country.name
+ORDER BY Confirmed DESC, Deaths DESC
+LIMIT 10
+
+6. List all the confirmed cases in China including the Province State, the location (Lat and Long) details.
+
+SELECT 
+country.name AS "Country Region",
+province_state.name AS "Province State", 
+location.latitude AS "Latitude", 
+location.longitude AS "Longitude", 
+covid_report.confirmed AS "Confirmed" 
+from covid_report
+
+JOIN location ON covid_report.fk_location_id = location.id
+left JOIN province_state ON province_state.id <=> location.fk_province_state_id
+JOIN country ON country.id = location.fk_country_id
+
+WHERE country.name = "China"
