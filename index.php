@@ -29,6 +29,7 @@
     <p>Should not exists? - If this column shouldn't exists in the record</p>
     <p>Advanced query? - If you want to query numerical values with "greater than" and "less than"</p>
     <p>Leave empty input if you don't want to query by its value</p>
+    <p>If you want to search multiple values separate it with comma ',' (only for text)</p>
 
     <form id="covid-form">
     <?php

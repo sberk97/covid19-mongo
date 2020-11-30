@@ -40,10 +40,12 @@ function createFilter() {
         for ($i=0; $i < count($values); $i++) { 
           $values[$i] = trim($values[$i]);
         }
-        $filter[$fieldName] = ['$in' => $values];
+        $output = ['$in' => $values];
       } else {
-        $filter[$fieldName] = buildFilterForField($fieldName, $settings["input-type"]);
+        $output = buildFilterForField($fieldName, $settings["input-type"]);
       }
+
+      $filter[$fieldName] = $output;
     } else if(isset($_POST[$fieldName . "-exists"])) {
       $filter[$fieldName] = ['$exists' => false];
     } else if (isset($_POST[$fieldName . "-notempty"])) {
