@@ -59,9 +59,9 @@
         $fieldhtml .= "<label for='$fieldName-advanced'>Advanced query?</label><input id='$fieldName-advanced' name='$fieldName-advanced' type='checkbox' disabled/>";
         $fieldhtml .= "<div id='$fieldName-advanced-div' style='display:none;'>
           <label for='$fieldName-advanced-gt'>Greater than:</label>
-          <input type='number' id='$fieldName-advanced-gt-input' name='$fieldName-advanced-gt'>
+          <input type='number'" . insertStep($settings["is-double"]) . " id='$fieldName-advanced-gt-input' name='$fieldName-advanced-gt'>
           <label for='$fieldName-advanced-lt'>Less than:</label>
-          <input type='number' id='$fieldName-advanced-lt-input' name='$fieldName-advanced-lt'>
+          <input type='number'" . insertStep($settings["is-double"]) . " id='$fieldName-advanced-lt-input' name='$fieldName-advanced-lt'>
         </div>";
       }
       
