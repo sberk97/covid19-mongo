@@ -6,7 +6,7 @@ $fieldNamesWithSettings = [
       "not-empty" => true,
       "advanced" => false,
       "on-screen" => "FIPS",
-      "input-type" => "number"
+      "input-type" => "number",
     ],
     "admin2" => [
       "display" => true,
@@ -46,7 +46,8 @@ $fieldNamesWithSettings = [
       "not-empty" => true,
       "advanced" => false,
       "on-screen" => "Latitude",
-      "input-type" => "number"
+      "input-type" => "number",
+      "is-double" => true
     ], 
     "longitude" => [
       "display" => true,
@@ -54,7 +55,8 @@ $fieldNamesWithSettings = [
       "not-empty" => true,
       "advanced" => false,
       "on-screen" => "Longitude",
-      "input-type" => "number"
+      "input-type" => "number",
+      "is-double" => true
     ], 
     "confirmed" => [
       "display" => true,
@@ -102,7 +104,8 @@ $fieldNamesWithSettings = [
       "not-empty" => true,
       "advanced" => true,
       "on-screen" => "Incidence Rate",
-      "input-type" => "number"
+      "input-type" => "number",
+      "is-double" => true
     ], 
     "case-fatality-ratio" => [
       "display" => true,
@@ -110,7 +113,8 @@ $fieldNamesWithSettings = [
       "not-empty" => true,
       "advanced" => true,
       "on-screen" => "Case-Fatality ratio",
-      "input-type" => "number"
+      "input-type" => "number",
+      "is-double" => true
     ],
   ];
 ?>
