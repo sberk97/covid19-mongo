@@ -14,12 +14,16 @@ table, td, th {
 
 th {text-align: left;}
 </style>
+<script>
+var mapData = [];
+</script>
 </head>
 <body>
 
 <?php require 'field-settings.php';
 
 $table = "<table><tr>";
+$recordDataForMap = [];
 
 function connectWithDb() {
   $host="mongo:27017";
@@ -137,6 +141,7 @@ function returnTable($cursor) {
   echo $table;
 
   foreach ( $cursor as $r ) {
+    saveRecordDataForMap($r);
     echo "<tr>";
     foreach ($fieldNamesWithSettings as $fieldName => $settings) {
       if(isset($_POST[$fieldName . "-display"])) {
@@ -147,6 +152,21 @@ function returnTable($cursor) {
     echo "</tr>";
   }
   echo "</table>";
+}
+
+function saveRecordDataForMap($r) {
+  global $recordDataForMap;
+
+  $latitude = $r -> {"latitude"};
+  $longitude = $r -> {"longitude"};
+  if (!empty($latitude) && !empty($longitude)) {
+      $countryRegion = $r -> {"country-region"};
+      $confirmed = $r -> {"confirmed"};
+      $deaths = $r -> {"deaths"};
+      $recovered = $r -> {"recovered"};
+      $recordData = ["latitude" => $latitude, "longitude" => $longitude, "country-region" => $countryRegion, "confirmed" => $confirmed, "deaths" => $deaths, "recovered" => $recovered];
+      $recordDataForMap[] = $recordData;
+  }
 }
 
 function prepareValueToDisplay($value, $inputType) {
