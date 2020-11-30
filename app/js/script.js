@@ -194,7 +194,7 @@ $("#covid-form").submit(function(event){
 
     // Fire off the request to /get-data.php
     request = $.ajax({
-        url: "/get-data.php",
+        url: "app/php/get-data.php",
         type: "post",
         data: serializedData
     });
@@ -209,7 +209,7 @@ $("#covid-form").submit(function(event){
         // Log the error to the console
         console.error(
             "The following error occurred: "+
-            textStatus, errorThrown
+            textStatus, errorThrown, jqXHR
         );
     });
 
