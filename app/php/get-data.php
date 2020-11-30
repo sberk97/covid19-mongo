@@ -35,7 +35,15 @@ function createFilter() {
     if (isset($_POST[$fieldName . "-advanced"])) {
       $filter[$fieldName] = buildAdvancedFilterForField($fieldName);
     } else if (!isset($_POST[$fieldName . "-exists"]) && !empty($_POST[$fieldName])) {
-      $filter[$fieldName] = buildFilterForField($fieldName, $settings["input-type"]);
+      if (strpos($_POST[$fieldName], ",") !== false) {
+        $values = explode(",", trim($_POST[$fieldName]));
+        for ($i=0; $i < count($values); $i++) { 
+          $values[$i] = trim($values[$i]);
+        }
+        $filter[$fieldName] = ['$in' => $values];
+      } else {
+        $filter[$fieldName] = buildFilterForField($fieldName, $settings["input-type"]);
+      }
     } else if(isset($_POST[$fieldName . "-exists"])) {
       $filter[$fieldName] = ['$exists' => false];
     } else if (isset($_POST[$fieldName . "-notempty"])) {
@@ -46,6 +54,7 @@ function createFilter() {
     }
   }
   $table .= "</tr>";
+  print_r($filter);
   return $filter;
 }
 
