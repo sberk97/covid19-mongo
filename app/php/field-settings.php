@@ -36,7 +36,7 @@ $fieldNamesWithSettings = [
       "display" => true,
       "exists" => true,
       "not-empty" => true,
-      "advanced" => false,
+      "advanced" => true,
       "on-screen" => "Last Update",
       "input-type" => "date"
     ],    

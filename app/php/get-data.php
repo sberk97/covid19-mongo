@@ -33,19 +33,9 @@ function createFilter() {
   $filter = [];
   foreach ($fieldNamesWithSettings as $fieldName => $settings) {
     if (isset($_POST[$fieldName . "-advanced"])) {
-      $filter[$fieldName] = buildAdvancedFilterForField($fieldName);
+      $filter[$fieldName] = buildAdvancedFilterForField($fieldName, $settings["input-type"]);
     } else if (!isset($_POST[$fieldName . "-exists"]) && !empty($_POST[$fieldName])) {
-      if (strpos($_POST[$fieldName], ",") !== false) {
-        $values = explode(",", trim($_POST[$fieldName]));
-        for ($i=0; $i < count($values); $i++) { 
-          $values[$i] = trim($values[$i]);
-        }
-        $output = ['$in' => $values];
-      } else {
-        $output = buildFilterForField($fieldName, $settings["input-type"]);
-      }
-
-      $filter[$fieldName] = $output;
+      $filter[$fieldName] = buildFilterForField($_POST[$fieldName], $settings["input-type"]);
     } else if(isset($_POST[$fieldName . "-exists"])) {
       $filter[$fieldName] = ['$exists' => false];
     } else if (isset($_POST[$fieldName . "-notempty"])) {
@@ -56,35 +46,49 @@ function createFilter() {
     }
   }
   $table .= "</tr>";
-  print_r($filter);
   return $filter;
 }
 
-function buildFilterForField($fieldName, $inputType) {
-  if ($inputType == "date") {
-    $givenDate = new DateTime($_POST[$fieldName]);
-    $nextDay = clone $givenDate;
+function buildFilterForField($value, $inputType) {
+  if (strpos($value, ",") !== false) {
+    $values = explode(",", trim($value));
+    for ($i=0; $i < count($values); $i++) { 
+      $values[$i] = trim($values[$i]);
+      $values[$i] = prepareValueForSearch($values[$i], $settings["input-type"]);
+    }
+    return ['$in' => $values];
+  } else if($inputType == "date") {
+    $nextDay = new DateTime($value);
     $nextDay->add(new DateInterval('P1D'));
-    $givenDateMongoDB = new MongoDB\BSON\UTCDateTime($givenDate->getTimestamp()*1000);
+    $givenDateMongoDB = prepareValueForSearch($value, $settings["input-type"]);
     $nextDayMongoDB = new MongoDB\BSON\UTCDateTime($nextDay->getTimestamp()*1000);
     return ['$gte' => $givenDateMongoDB, '$lt' => $nextDayMongoDB];
-  } else if($inputType == "number") {
-    return (double) $_POST[$fieldName];
+  } else {
+    return prepareValueForSearch($value, $settings["input-type"]);
   }
-  return $_POST[$fieldName];
 }
 
-function buildAdvancedFilterForField($fieldName) {
+function buildAdvancedFilterForField($fieldName, $inputType) {
   $gtValue = $_POST[$fieldName . "-advanced-gt"];
   $ltValue = $_POST[$fieldName . "-advanced-lt"];
-  if (!empty($gtValue)) {
-    $advancedArray['$gt'] = (double) $gtValue;
-  }
 
+  if (!empty($gtValue)) {
+    $advancedArray['$gt'] = prepareValueForSearch($gtValue, $inputType);
+  }
   if (!empty($ltValue)) {
-    $advancedArray['$lt'] = (double) $ltValue;
+    $advancedArray['$lt'] = prepareValueForSearch($ltValue, $inputType);
   }
   return $advancedArray;
+}
+
+function prepareValueForSearch($value, $inputType) {
+  if ($inputType == "date") {
+    $date = new DateTime($value);
+    return new MongoDB\BSON\UTCDateTime($date->getTimestamp()*1000);
+  } else if ($inputType == "number") {
+    return (double) $value;
+  }
+  return $value;
 }
 
 function createOptions() {
