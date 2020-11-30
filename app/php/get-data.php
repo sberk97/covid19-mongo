@@ -20,6 +20,7 @@ th {text-align: left;}
 <?php require 'field-settings.php';
 
 $table = "<table><tr>";
+$recordDataForMap = [];
 
 function connectWithDb() {
   $host="mongo:27017";
@@ -137,6 +138,7 @@ function returnTable($cursor) {
   echo $table;
 
   foreach ( $cursor as $r ) {
+    saveRecordDataForMap($r);
     echo "<tr>";
     foreach ($fieldNamesWithSettings as $fieldName => $settings) {
       if(isset($_POST[$fieldName . "-display"])) {
@@ -149,12 +151,67 @@ function returnTable($cursor) {
   echo "</table>";
 }
 
+function saveRecordDataForMap($r) {
+  global $recordDataForMap;
+
+  $latitude = $r -> {"latitude"};
+  $longitude = $r -> {"longitude"};
+  if (!empty($latitude) && !empty($longitude)) {
+      $countryRegion = $r -> {"country-region"};
+      $countryRegion = str_replace("'", " ", $countryRegion); // caused issues while returning script
+      $confirmed = $r -> {"confirmed"};
+      $deaths = $r -> {"deaths"};
+      $recovered = $r -> {"recovered"};
+      $recordData = ["latitude" => $latitude, "longitude" => $longitude, "country-region" => $countryRegion, "confirmed" => $confirmed, "deaths" => $deaths, "recovered" => $recovered];
+      $recordDataForMap[] = $recordData;
+  }
+}
+
 function prepareValueToDisplay($value, $inputType) {
   if ($inputType == "date") {
     return $value -> toDateTime() -> format('d-m-Y\ H:i:s');
   }
 
   return $value;
+}
+
+function returnMap() {
+  $mapScript = "
+  <div id='mapid'></div>
+  <script>
+  var mymap = L.map('mapid').setView([0, 0], 1);
+  " . createMarkers() . " 
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  attribution: 'Map data &copy; <a href=https://www.openstreetmap.org/>OpenStreetMap</a> contributors, <a href=https://creativecommons.org/licenses/by-sa/2.0/>CC-BY-SA</a>, Imagery © <a href=https://www.mapbox.com/>Mapbox</a>',
+  maxZoom: 18
+  }).addTo(mymap);
+  
+  </script>";
+  echo $mapScript;
+}
+
+function createMarkers() {
+  global $recordDataForMap;
+
+  $markersString = "";
+  $i = 0;
+  foreach ($recordDataForMap as $key => $value) {
+    $lat = $value['latitude'];
+    $long = $value['longitude'];
+    $countryRegion = $value['country-region'];
+    $confirmed = $value['confirmed'];
+    $deaths = $value['deaths'];
+    $recovered = $value['recovered'];
+    $markersString .= 
+    "var marker$i = L.marker(['$lat', '$long']).addTo(mymap);
+    marker$i.bindPopup('<b>$countryRegion</b><br><br>Confirmed cases: $confirmed<br>Death cases: $deaths<br>Recovered cases: $recovered');";
+    $i++;
+    if ($i==200) {
+      break; // limit number of markers as it can freeze browser
+    }
+  }
+
+  return $markersString;
 }
 
 try {
@@ -165,6 +222,7 @@ try {
       $cursor = $manager->executeQuery($dbname, $query);
       
       returnTable($cursor);
+      returnMap();
     }
 } catch(Exception $e){
     echo "<h1>Failed to connect with database</h1>";

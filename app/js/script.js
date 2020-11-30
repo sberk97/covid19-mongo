@@ -184,6 +184,9 @@ $("#covid-form").submit(function(event){
 
     request.done(function (response, textStatus, jqXHR){
         document.getElementById("results").innerHTML = response;
+        $("#results").find("script").each(function(i) {
+            eval($(this).text());
+        });
     });
 
     request.fail(function (jqXHR, textStatus, errorThrown){
