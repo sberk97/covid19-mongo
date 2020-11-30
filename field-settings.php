@@ -6,7 +6,7 @@ $fieldNamesWithSettings = [
       "not-empty" => true,
       "advanced" => false,
       "on-screen" => "FIPS",
-      "input-type" => "number",
+      "input-type" => "number"
     ],
     "admin2" => [
       "display" => true,
