@@ -32,9 +32,15 @@
 
     <form id="covid-form">
     <?php
+    function insertStep($isDouble) {
+      if ($isDouble) {
+        return " step='any' ";
+      }
+    }
+
     foreach ($fieldNamesWithSettings as $fieldName => $settings) {
       $fieldhtml = "<div id='$fieldName-div' style='display:none;'>";
-      $fieldhtml .= "<label for='$fieldName'>" . $settings["on-screen"] . ":</label><input type='" . $settings["input-type"] . "' id='$fieldName-input' name='$fieldName' disabled>";
+      $fieldhtml .= "<label for='$fieldName'>" . $settings["on-screen"] . ":</label><input type='" . $settings["input-type"] . "'" . insertStep($settings["is-double"]) . "id='$fieldName-input' name='$fieldName' disabled>";
       
       if ($settings["display"]) {
         $fieldhtml .= "<label for='$fieldName-display'>Display?</label><input id='$fieldName-display' name='$fieldName-display' type='checkbox' disabled checked/>";

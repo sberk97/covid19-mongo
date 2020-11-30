@@ -57,6 +57,8 @@ function buildFilterForField($fieldName, $inputType) {
     $givenDateMongoDB = new MongoDB\BSON\UTCDateTime($givenDate->getTimestamp()*1000);
     $nextDayMongoDB = new MongoDB\BSON\UTCDateTime($nextDay->getTimestamp()*1000);
     return ['$gte' => $givenDateMongoDB, '$lt' => $nextDayMongoDB];
+  } else if($inputType == "number") {
+    return (double) $_POST[$fieldName];
   }
   return $_POST[$fieldName];
 }
