@@ -5,14 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
   <title>COVID-19 Database</title>
   <meta name="author" content="Sebastian Berk">
-  <link rel="stylesheet" type="text/css" href="styles.css">
-  <script src="jquery-3.5.1.min.js"></script>
-  <script src="script.js" async defer></script>
+  <link rel="stylesheet" type="text/css" href="app/css/styles.css">
+  <script src="app/js/jquery-3.5.1.min.js"></script>
+  <script src="app/js/script.js" async defer></script>
 </head>
 <body>
   <div class="sidenav">
     <div class="column-description">Click to select a column</div>
-    <?php require 'field-settings.php';
+    <?php require 'app/php/field-settings.php';
     
     foreach ($fieldNamesWithSettings as $fieldName => $settings) {
       echo "<input id='$fieldName' type='checkbox' name='column-checkbox'/><label for='$fieldName'>" . $settings["on-screen"] . "</label>";
