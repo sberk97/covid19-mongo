@@ -207,7 +207,7 @@ function createMarkers() {
     marker$i.bindPopup('<b>$countryRegion</b><br><br>Confirmed cases: $confirmed<br>Death cases: $deaths<br>Recovered cases: $recovered');";
     $i++;
     if ($i==200) {
-      break;
+      break; // limit number of markers as it can freeze browser
     }
   }
 
