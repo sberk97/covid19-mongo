@@ -14,9 +14,6 @@ table, td, th {
 
 th {text-align: left;}
 </style>
-<script>
-var mapData = [];
-</script>
 </head>
 <body>
 
@@ -161,6 +158,7 @@ function saveRecordDataForMap($r) {
   $longitude = $r -> {"longitude"};
   if (!empty($latitude) && !empty($longitude)) {
       $countryRegion = $r -> {"country-region"};
+      $countryRegion = str_replace("'", " ", $countryRegion); // caused issues while returning script
       $confirmed = $r -> {"confirmed"};
       $deaths = $r -> {"deaths"};
       $recovered = $r -> {"recovered"};
@@ -177,6 +175,45 @@ function prepareValueToDisplay($value, $inputType) {
   return $value;
 }
 
+function returnMap() {
+  $mapScript = "
+  <div id='mapid'></div>
+  <script>
+  var mymap = L.map('mapid').setView([0, 0], 1);
+  " . createMarkers() . " 
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  attribution: 'Map data &copy; <a href=https://www.openstreetmap.org/>OpenStreetMap</a> contributors, <a href=https://creativecommons.org/licenses/by-sa/2.0/>CC-BY-SA</a>, Imagery © <a href=https://www.mapbox.com/>Mapbox</a>',
+  maxZoom: 18
+  }).addTo(mymap);
+  
+  </script>";
+  echo $mapScript;
+}
+
+function createMarkers() {
+  global $recordDataForMap;
+
+  $markersString = "";
+  $i = 0;
+  foreach ($recordDataForMap as $key => $value) {
+    $lat = $value['latitude'];
+    $long = $value['longitude'];
+    $countryRegion = $value['country-region'];
+    $confirmed = $value['confirmed'];
+    $deaths = $value['deaths'];
+    $recovered = $value['recovered'];
+    $markersString .= 
+    "var marker$i = L.marker(['$lat', '$long']).addTo(mymap);
+    marker$i.bindPopup('<b>$countryRegion</b><br><br>Confirmed cases: $confirmed<br>Death cases: $deaths<br>Recovered cases: $recovered');";
+    $i++;
+    if ($i==200) {
+      break;
+    }
+  }
+
+  return $markersString;
+}
+
 try {
     $manager = connectWithDb();
     if ($manager) {
@@ -185,6 +222,7 @@ try {
       $cursor = $manager->executeQuery($dbname, $query);
       
       returnTable($cursor);
+      returnMap();
     }
 } catch(Exception $e){
     echo "<h1>Failed to connect with database</h1>";
