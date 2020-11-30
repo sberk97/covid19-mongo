@@ -62,9 +62,11 @@ function changeVisibilityOfAdvancedInputWithGivenId(id) {
     if ($("#" + id + "-advanced").is(':checked')){
         $("#" + id + "-advanced-div").show();
         enableAdvancedInput(id);
+        $("#" + id + "-input").prop("disabled", true);
     } else {
         $("#" + id + "-advanced-div").hide();
         disableAdvancedInput(id);
+        $("#" + id + "-input").prop("disabled", false);
     }
 }
 

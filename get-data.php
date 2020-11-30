@@ -31,9 +31,10 @@ function createFilter() {
   global $table;
   global $fieldNamesWithSettings;
   $filter = [];
-  $i = 0;
   foreach ($fieldNamesWithSettings as $fieldName => $settings) {
-    if (!isset($_POST[$fieldName . "-exists"]) && !empty($_POST[$fieldName])) {
+    if (isset($_POST[$fieldName . "-advanced"])) {
+      $filter[$fieldName] = buildAdvancedFilterForField($fieldName);
+    } else if (!isset($_POST[$fieldName . "-exists"]) && !empty($_POST[$fieldName])) {
       $filter[$fieldName] = buildFilterForField($fieldName, $settings["input-type"]);
     } else if(isset($_POST[$fieldName . "-exists"])) {
       $filter[$fieldName] = ['$exists' => false];
@@ -43,7 +44,6 @@ function createFilter() {
     if (isset($_POST[$fieldName . "-display"])) {
       $table .= "<th>" . $settings["on-screen"] . "</th>";
     }
-    $i++;
   }
   $table .= "</tr>";
   return $filter;
@@ -61,6 +61,19 @@ function buildFilterForField($fieldName, $inputType) {
     return (double) $_POST[$fieldName];
   }
   return $_POST[$fieldName];
+}
+
+function buildAdvancedFilterForField($fieldName) {
+  $gtValue = $_POST[$fieldName . "-advanced-gt"];
+  $ltValue = $_POST[$fieldName . "-advanced-lt"];
+  if (!empty($gtValue)) {
+    $advancedArray['$gt'] = (double) $gtValue;
+  }
+
+  if (!empty($ltValue)) {
+    $advancedArray['$lt'] = (double) $ltValue;
+  }
+  return $advancedArray;
 }
 
 function createOptions() {
