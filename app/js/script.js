@@ -2,7 +2,7 @@ var fields = "#fips, #admin2, #province-state, #country-region, #last-update, #l
 var displayCheckbox = "#fips-display, #admin2-display, #province-state-display, #country-region-display, #last-update-display, #latitude-display, #longitude-display, #confirmed-display, #deaths-display, #recovered-display, #active-display, #combined-key-display, #incidence-rate-display, #case-fatality-ratio-display";
 var existsCheckbox = "#fips-exists, #admin2-exists, #province-state-exists, #country-region-exists, #last-update-exists, #latitude-exists, #longitude-exists, #confirmed-exists, #deaths-exists, #recovered-exists, #active-exists, #combined-key-exists, #incidence-rate-exists, #case-fatality-ratio-exists";
 var notEmptyCheckbox = "#fips-notempty, #admin2-notempty, #province-state-notempty, #country-region-notempty, #last-update-notempty, #latitude-notempty, #longitude-notempty, #confirmed-notempty, #deaths-notempty, #recovered-notempty, #active-notempty, #combined-key-notempty, #incidence-rate-notempty, #case-fatality-ratio-notempty";
-var advFields = "#confirmed-advanced, #deaths-advanced, #recovered-advanced, #active-advanced, #incidence-rate-advanced, #case-fatality-ratio-advanced";
+var advFields = "#last-update-advanced, #confirmed-advanced, #deaths-advanced, #recovered-advanced, #active-advanced, #incidence-rate-advanced, #case-fatality-ratio-advanced";
 
 $(fields).change(changeVisibilityOfInput);
 $(displayCheckbox).change(changeStateOfFieldInSort);
