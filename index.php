@@ -38,7 +38,7 @@
     <p>Leave empty input if you don't want to query by its value</p>
     <p>If you want to search multiple values separate it with comma ',' (only for text)</p>
 
-    <form id="covid-form">
+    <form id="covid-form" style='display:none;'>
     <table>
       <tr id="table-head">
         <th>Field name</th>

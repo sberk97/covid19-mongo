@@ -25,15 +25,32 @@ function deselect() {
     for (var i = 0; i < checkboxes.length; i++) {
         checkboxes[i].checked = false;
     }
+    $("#covid-form").hide();
     $(fields).each(changeVisibilityOfInput);
     document.getElementById("covid-form").reset();
 }
 
+function checkIfFormShouldBeHidden() {
+    var checkboxes = document.querySelectorAll('input[name=column-checkbox]');
+    for (var i = 0; i < checkboxes.length; i++) {
+        if (checkboxes[i].checked == true) {
+            return;
+        }
+    }
+    $("#covid-form").hide();
+}
+
 function changeVisibilityOfInput() {
     if ($(this).is(':checked')){
+        if (!$("#covid-form").is(":visible")) {
+            $("#covid-form").show();
+        }
         $("#" + this.id + "-div").show();
         enableFieldWithGivenId(this.id);
     } else {
+        if ($("#covid-form").is(":visible")) {
+            checkIfFormShouldBeHidden();
+        }
         $("#" + this.id + "-div").hide();
         $(this).each(setInputToDefault);
         disableFieldWithGivenId(this.id);
