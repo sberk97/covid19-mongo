@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
   <title>COVID-19 Database</title>
   <meta name="author" content="Sebastian Berk">
+  <!-- <link rel="stylesheet" href="https://unpkg.com/mvp.css"> -->
   <link rel="stylesheet" type="text/css" href="app/css/styles.css">
   <script src="app/js/jquery-3.5.1.min.js"></script>
   <script src="app/js/script.js" async defer></script>
@@ -38,6 +39,14 @@
     <p>If you want to search multiple values separate it with comma ',' (only for text)</p>
 
     <form id="covid-form">
+    <table>
+      <tr id="table-head">
+        <th>Field name</th>
+        <th>Display</th>
+        <th>Should not exists?</th>
+        <th>Should not be empty?</th>
+        <th>Advanced query?</th>
+      </tr>
     <?php
     function insertStep($isDouble) {
       if ($isDouble) {
@@ -46,36 +55,37 @@
     }
 
     foreach ($fieldNamesWithSettings as $fieldName => $settings) {
-      $fieldhtml = "<div id='$fieldName-div' style='display:none;'>";
-      $fieldhtml .= "<label for='$fieldName'>" . $settings["on-screen"] . ":</label><input type='" . $settings["input-type"] . "'" . insertStep($settings["is-double"]) . "id='$fieldName-input' name='$fieldName' disabled>";
+      $fieldhtml = "<tr id='$fieldName-div' style='display:none;'>";
+      $fieldhtml .= "<td><label for='$fieldName'>" . $settings["on-screen"] . ":</label><input type='" . $settings["input-type"] . "'" . insertStep($settings["is-double"]) . "id='$fieldName-input' name='$fieldName' disabled></td>";
       
       if ($settings["display"]) {
-        $fieldhtml .= "<label for='$fieldName-display'>Display?</label><input id='$fieldName-display' name='$fieldName-display' type='checkbox' disabled checked/>";
+        $fieldhtml .= "<td><input id='$fieldName-display' name='$fieldName-display' type='checkbox' disabled checked/></td>";
       }
 
       if ($settings["exists"]) {
-        $fieldhtml .= "<label for='$fieldName-exists'>Should not exists?</label><input id='$fieldName-exists' name='$fieldName-exists' type='checkbox' disabled />";
+        $fieldhtml .= "<td><input id='$fieldName-exists' name='$fieldName-exists' type='checkbox' disabled /></td>";
       }
 
       if ($settings["not-empty"]) {
-        $fieldhtml .= "<label for='$fieldName-notempty'>Should not be empty?</label><input id='$fieldName-notempty' name='$fieldName-notempty' type='checkbox' disabled />";
+        $fieldhtml .= "<td><input id='$fieldName-notempty' name='$fieldName-notempty' type='checkbox' disabled /></td>";
       }
 
       if ($settings["advanced"]) {
-        $fieldhtml .= "<label for='$fieldName-advanced'>Advanced query?</label><input id='$fieldName-advanced' name='$fieldName-advanced' type='checkbox' disabled/>";
+        $fieldhtml .= "<td><input id='$fieldName-advanced' name='$fieldName-advanced' type='checkbox' disabled/>";
         $fieldhtml .= "<div id='$fieldName-advanced-div' style='display:none;'>
           <label for='$fieldName-advanced-gt'>Greater than:</label>
           <input type='" . $settings["input-type"] . "'" . insertStep($settings["is-double"]) . " id='$fieldName-advanced-gt-input' name='$fieldName-advanced-gt'>
           <label for='$fieldName-advanced-lt'>Less than:</label>
           <input type='" . $settings["input-type"] . "'" . insertStep($settings["is-double"]) . " id='$fieldName-advanced-lt-input' name='$fieldName-advanced-lt'>
-        </div>";
+        </div></td>";
       }
       
-      $fieldhtml .= "</div>";
+      $fieldhtml .= "</tr>";
 
       echo $fieldhtml;
     }
     ?>
+    </table>
     <div>
       <label for="sort-by">Sort by:</label>
       <select name="sort-by" id="sort-by">
@@ -102,7 +112,7 @@
       <button id="reset-btn" type="reset" value="reset">Reset form</button>
     </div>
     </form>
-    <div id="results"><b>Results will display here...</b></div>
+    <div id="results"></div>
   </div>
 </body>
 </html>

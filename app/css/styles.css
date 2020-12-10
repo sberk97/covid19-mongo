@@ -1,58 +1,114 @@
-  .sidenav {
-    height: 100%;
-    width: 200px;
-    position: fixed;
-    z-index: 1;
-    top: 0;
-    left: 0;
-    background-color: black;
-    overflow-x: hidden;
-    padding-top: 10px;
-  }
+.sidenav {
+  height: 100%;
+  width: 200px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: black;
+  overflow-x: hidden;
+  padding-top: 10px;
+}
 
-  .sidenav .column-description {
-    padding: 0px 0px 6px 6px;
-    font-size: 18px;
-    color: white;
-    border-bottom: 1px solid white;
-  }
-  
-  .sidenav label {
-    padding: 6px 6px 6px 6px;
-    font-size: 20px;
-    color: gray;
-    display: block;
-    overflow-y: auto;
-    border-bottom: 1px solid white;
-  }
+.sidenav .column-description {
+  padding: 0px 0px 6px 6px;
+  font-size: 18px;
+  color: white;
+  border-bottom: 1px solid white;
+}
 
-  .sidenav input[type=checkbox] {
-      visibility: hidden;
-      display: none;
-  }
-  
-  .sidenav label:hover, .sidenav :checked + label {
-    color: white;
-    cursor: pointer;
-    background-color: #5F5566;
-  }
+.sidenav label {
+  padding: 6px 6px 6px 6px;
+  font-size: 20px;
+  color: gray;
+  display: block;
+  overflow-y: auto;
+  border-bottom: 1px solid white;
+}
 
-  .sidenav .select-btn {
-    background-color: #5F5566;
-    display: block;
-    cursor: pointer;
-    color: white;
-    font-size: 15px;
-    padding: 5px 20px;
-    margin: 15px 5px 5px 40px;
-  }
+.sidenav input[type=checkbox] {
+    visibility: hidden;
+    display: none;
+}
 
-  .main {
-    margin-left: 200px; /* Same as the width of the sidenav */
-  }
+.sidenav label:hover, .sidenav :checked + label {
+  color: white;
+  cursor: pointer;
+  background-color: #5F5566;
+}
 
-  body {
-    background-color: #80ADA0;
-  }
+button {
+  background-color: #5F5566;
+  color: white;
+  border: 2px solid #5F5566;
+  border-radius: var(--border-radius);
+  font-size: 15px;
+  font-family: var(--font-family);
+  padding: 5px 20px;
+}
 
-  #mapid { height: 500px; }
+button:hover {
+  cursor: pointer;
+  filter: brightness(var(--hover-brightness));
+}
+
+.sidenav .select-btn {
+  display: block;
+  margin: 15px 5px 5px 40px;
+}
+
+.main {
+  margin-left: 200px; /* Same as the width of the sidenav */
+}
+
+:root {
+  --border-radius: 5px;
+  --box-shadow: 2px 2px 10px;
+  --color: #118bee;
+  --color-accent: #118bee15;
+  --color-bg: #fff;
+  --color-bg-secondary: #e9e9e9;
+  --color-secondary: #920de9;
+  --color-secondary-accent: #920de90b;
+  --color-shadow: #f4f4f4;
+  --color-text: #000;
+  --color-text-secondary: #999;
+  --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  --hover-brightness: 1.2;
+  --justify-important: center;
+  --justify-normal: left;
+  --line-height: 1.5;
+  --width-card: 285px;
+  --width-card-medium: 460px;
+  --width-card-wide: 800px;
+  --width-content: 1080px;
+}
+
+body {
+  background-color: #80ADA0;
+  color: var(--color-text);
+  font-family: var(--font-family);
+  line-height: var(--line-height);
+  margin: 0;
+  overflow-x: hidden;
+  padding: 1rem 0;
+}
+
+#mapid { height: 500px; }
+
+form table td {
+  text-align: center;
+}
+
+form table tr td:first-child {
+  display: flex; 
+  justify-content: space-between;
+}
+
+form table td, table form th {
+  padding: 5px;
+}
+
+form table tr td:first-child label {
+  padding-right: 30px;
+}
