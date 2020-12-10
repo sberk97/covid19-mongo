@@ -105,10 +105,15 @@ form table tr td:first-child {
   justify-content: space-between;
 }
 
-form table td, table form th {
+form table td, form table th {
   padding: 5px;
 }
 
 form table tr td:first-child label {
   padding-right: 30px;
+}
+
+form table tr td:first-child input {
+  width: 10rem;
+  padding: 0;
 }

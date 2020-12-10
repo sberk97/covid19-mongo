@@ -71,13 +71,13 @@
       }
 
       if ($settings["advanced"]) {
-        $fieldhtml .= "<td><input id='$fieldName-advanced' name='$fieldName-advanced' type='checkbox' disabled/>";
-        $fieldhtml .= "<div id='$fieldName-advanced-div' style='display:none;'>
+        $fieldhtml .= "<td><input id='$fieldName-advanced' name='$fieldName-advanced' type='checkbox' disabled/></td>";
+        $fieldhtml .= "<td id='$fieldName-advanced-div' style='display:none;'>
           <label for='$fieldName-advanced-gt'>Greater than:</label>
           <input type='" . $settings["input-type"] . "'" . insertStep($settings["is-double"]) . " id='$fieldName-advanced-gt-input' name='$fieldName-advanced-gt'>
           <label for='$fieldName-advanced-lt'>Less than:</label>
           <input type='" . $settings["input-type"] . "'" . insertStep($settings["is-double"]) . " id='$fieldName-advanced-lt-input' name='$fieldName-advanced-lt'>
-        </div></td>";
+        </td>";
       }
       
       $fieldhtml .= "</tr>";
