@@ -46,7 +46,6 @@ button {
   font-family: var(--font-family);
   padding: 5px 20px;
   outline: none;
-  width: 7rem;
 }
 
 button:hover {
@@ -57,6 +56,7 @@ button:hover {
 .sidenav .select-btn {
   display: block;
   margin: 15px 5px 5px 40px;
+  width: 7rem;
 }
 
 .main {
