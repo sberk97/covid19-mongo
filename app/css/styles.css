@@ -45,6 +45,7 @@ button {
   font-size: 15px;
   font-family: var(--font-family);
   padding: 5px 20px;
+  outline: none;
 }
 
 button:hover {
