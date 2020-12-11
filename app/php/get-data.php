@@ -40,17 +40,17 @@ function buildFilterForField($value, $inputType) {
     $values = explode(",", trim($value));
     for ($i=0; $i < count($values); $i++) { 
       $values[$i] = trim($values[$i]);
-      $values[$i] = prepareValueForSearch($values[$i], $settings["input-type"]);
+      $values[$i] = prepareValueForSearch($values[$i], $inputType);
     }
     return ['$in' => $values];
   } else if($inputType == "date") {
     $nextDay = new DateTime($value);
     $nextDay->add(new DateInterval('P1D'));
-    $givenDateMongoDB = prepareValueForSearch($value, $settings["input-type"]);
+    $givenDateMongoDB = prepareValueForSearch($value, $inputType);
     $nextDayMongoDB = new MongoDB\BSON\UTCDateTime($nextDay->getTimestamp()*1000);
     return ['$gte' => $givenDateMongoDB, '$lt' => $nextDayMongoDB];
   } else {
-    return prepareValueForSearch($value, $settings["input-type"]);
+    return prepareValueForSearch($value, $inputType);
   }
 }
 
