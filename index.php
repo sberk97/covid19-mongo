@@ -33,6 +33,7 @@
     Pick columns from the left menu that you want to search by<br>
     Leave empty input if you don't want to search by its value<br>
     If you want to search multiple values separate them with comma ',' (only for text inputs)<br>
+    If you don't pick latitude and longitute or if they are empty map will not be displayed<br>
     Display - If you want to search by that column but don't want to see it in the results<br>
     Should not exists? - If this column shouldn't exists in the record<br>
     Should not be empty? - If this column should have values<br>
