@@ -45,13 +45,13 @@ function changeVisibilityOfInput() {
         if (!$("#covid-form").is(":visible")) {
             $("#covid-form").show();
         }
-        $("#" + this.id + "-div").show();
+        $("#" + this.id + "-tr").show();
         enableFieldWithGivenId(this.id);
     } else {
         if ($("#covid-form").is(":visible")) {
             checkIfFormShouldBeHidden();
         }
-        $("#" + this.id + "-div").hide();
+        $("#" + this.id + "-tr").hide();
         $(this).each(setInputToDefault);
         disableFieldWithGivenId(this.id);
     }
@@ -77,11 +77,11 @@ function changeVisibilityOfAdvancedInput() {
 
 function changeVisibilityOfAdvancedInputWithGivenId(id) {
     if ($("#" + id + "-advanced").is(':checked')){
-        $("#" + id + "-advanced-div").show();
+        $("#" + id + "-advanced-tr").show();
         enableAdvancedInput(id);
         $("#" + id + "-input").prop("disabled", true);
     } else {
-        $("#" + id + "-advanced-div").hide();
+        $("#" + id + "-advanced-tr").hide();
         disableAdvancedInput(id);
         $("#" + id + "-input").prop("disabled", false);
     }

@@ -55,8 +55,8 @@
       }
 
       foreach ($fieldNamesWithSettings as $fieldName => $settings) {
-        $fieldhtml = "<tr id='$fieldName-div' style='display:none;'>";
-        $fieldhtml .= "<td><label for='$fieldName'>" . $settings["on-screen"] . ":</label><input type='" . $settings["input-type"] . "'" . insertStep($settings["is-double"]) . "id='$fieldName-input' name='$fieldName' disabled></td>";
+        $fieldhtml = "<tr id='$fieldName-tr' style='display:none;'>";
+        $fieldhtml .= "<td><label for='$fieldName-form'>" . $settings["on-screen"] . ":</label><input type='" . $settings["input-type"] . "'" . insertStep($settings["is-double"]) . "id='$fieldName-input' name='$fieldName' disabled></td>";
         
         if ($settings["display"]) {
           $fieldhtml .= "<td><input id='$fieldName-display' name='$fieldName-display' type='checkbox' disabled checked/></td>";
@@ -72,7 +72,7 @@
 
         if ($settings["advanced"]) {
           $fieldhtml .= "<td><input id='$fieldName-advanced' name='$fieldName-advanced' type='checkbox' disabled/></td>";
-          $fieldhtml .= "<td id='$fieldName-advanced-div' style='display:none;'>
+          $fieldhtml .= "<td id='$fieldName-advanced-tr' style='display:none;'>
             <div class='justify'>
               <label for='$fieldName-advanced-gt' class='advanced-label'>Greater than:</label>
               <input type='" . $settings["input-type"] . "'" . insertStep($settings["is-double"]) . " id='$fieldName-advanced-gt-input' name='$fieldName-advanced-gt'>
