@@ -33,10 +33,10 @@
     Pick columns from the left menu that you want to search by<br>
     Leave empty input if you don't want to search by its value<br>
     If you want to search multiple values separate them with comma ',' (only for text inputs)<br>
-    Display - If you want to query by that column but don't want to see it in the results<br>
+    Display - If you want to search by that column but don't want to see it in the results<br>
     Should not exists? - If this column shouldn't exists in the record<br>
     Should not be empty? - If this column should have values<br>
-    Advanced query? - If you want to search numerical values with "greater than" and "less than"<br>
+    Advanced search? - If you want to search numerical values with "greater than" and "less than"<br>
 
     <form id="covid-form" style='display:none;'>
       <table>
@@ -45,7 +45,7 @@
           <th>Display</th>
           <th>Should not exists?</th>
           <th>Should not be empty?</th>
-          <th>Advanced query?</th>
+          <th>Advanced search?</th>
         </tr>
       <?php
       function insertStep($isDouble) {
