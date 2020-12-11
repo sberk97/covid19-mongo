@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
   <title>COVID-19 Database</title>
   <meta name="author" content="Sebastian Berk">
-  <!-- <link rel="stylesheet" href="https://unpkg.com/mvp.css"> -->
   <link rel="stylesheet" type="text/css" href="app/css/styles.css">
   <script src="app/js/jquery-3.5.1.min.js"></script>
   <script src="app/js/script.js" async defer></script>
@@ -25,8 +24,8 @@
       echo "<input id='$fieldName' type='checkbox' name='column-checkbox'/><label for='$fieldName'>" . $settings["on-screen"] . "</label>";
     }
     ?>
-    <button class="select-btn" onClick="selectAll();">Select all</button>
-    <button class="select-btn" onClick="deselect();">Deselect</button>
+    <button onClick="selectAll();">Select all</button>
+    <button onClick="deselect();">Deselect</button>
   </div>
 
   <div class="main">
@@ -75,11 +74,11 @@
           $fieldhtml .= "<td><input id='$fieldName-advanced' name='$fieldName-advanced' type='checkbox' disabled/></td>";
           $fieldhtml .= "<td id='$fieldName-advanced-div' style='display:none;'>
             <div class='justify'>
-              <label for='$fieldName-advanced-gt'>Greater than:</label>
+              <label for='$fieldName-advanced-gt' class='advanced-label'>Greater than:</label>
               <input type='" . $settings["input-type"] . "'" . insertStep($settings["is-double"]) . " id='$fieldName-advanced-gt-input' name='$fieldName-advanced-gt'>
             </div>
             <div class='justify'>
-              <label for='$fieldName-advanced-lt'>Less than:</label>
+              <label for='$fieldName-advanced-lt' class='advanced-label'>Less than:</label>
               <input type='" . $settings["input-type"] . "'" . insertStep($settings["is-double"]) . " id='$fieldName-advanced-lt-input' name='$fieldName-advanced-lt'>
             </div>
           </td>";
