@@ -22,13 +22,12 @@
 }
 
 body {
-  background-color: #80ADA0;
+  background-color: lightgray;
   color: var(--color-text);
   font-family: var(--font-family);
   line-height: var(--line-height);
   margin: 0;
   overflow-x: hidden;
-  padding: 1rem 0;
 }
 
 .sidenav {
@@ -60,8 +59,8 @@ body {
 }
 
 .sidenav input[type=checkbox] {
-    visibility: hidden;
-    display: none;
+  visibility: hidden;
+  display: none;
 }
 
 .sidenav label:hover, .sidenav :checked + label {
@@ -84,7 +83,12 @@ body {
 }
 
 .main {
-  margin-left: 200px; /* Same as the width of the sidenav */
+  margin-left: 250px; /* Same as the width of the sidenav (min 200px) */
+  font-size: 20px;
+}
+
+form {
+  width: fit-content;
 }
 
 button {
@@ -103,15 +107,18 @@ button:hover {
   filter: brightness(var(--hover-brightness));
 }
 
-
-
-#mapid { height: 500px; }
+#mapid { 
+  height: 430px;
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+  margin-right: 2rem; 
+}
 
 form table td {
   text-align: center;
 }
 
-form table tr td:first-child {
+form table tr td:first-child, .justify {
   display: flex; 
   justify-content: space-between;
 }
@@ -124,7 +131,36 @@ form table tr td:first-child label {
   padding-right: 30px;
 }
 
-form table tr td:first-child input {
+form table tr td:first-child input, input[type=date], .additional-padding select, .additional-padding input[type=number] {
   width: 10rem;
   padding: 0;
+  height: 20px;
+}
+
+.additional-padding {
+  padding-left: 7px;
+  padding-top: 5px;
+}
+
+.additional-padding select {
+  margin-left: 5rem;
+  margin-right: 2rem;
+}
+
+.additional-padding input[type=number] {
+  margin-left: 6rem;
+}
+
+.additional-padding #descending {
+  margin-left: 1rem;
+}
+
+.form-buttons {
+  padding-top: 2rem;
+  padding-left: 5rem;
+  padding-bottom: 1rem;
+}
+
+#submit-btn {
+  margin-right: 4rem;
 }
