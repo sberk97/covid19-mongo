@@ -19,7 +19,10 @@ function createFilter() {
   $filter = [];
   foreach ($fieldNamesWithSettings as $fieldName => $settings) {
     if (isset($_POST[$fieldName . "-advanced"])) {
-      $filter[$fieldName] = buildAdvancedFilterForField($fieldName, $settings["input-type"]);
+      $advFilter = buildAdvancedFilterForField($fieldName, $settings["input-type"]);
+      if (!empty($advFilter)) {
+          $filter[$fieldName] = $advFilter;
+      }
     } else if (!isset($_POST[$fieldName . "-exists"]) && !empty($_POST[$fieldName])) {
       $filter[$fieldName] = buildFilterForField($_POST[$fieldName], $settings["input-type"]);
     } else if(isset($_POST[$fieldName . "-exists"])) {
