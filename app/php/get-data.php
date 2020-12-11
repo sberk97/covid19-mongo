@@ -77,7 +77,7 @@ function prepareValueForSearch($value, $inputType) {
   } else if ($inputType == "number") {
     return (double) $value;
   }
-  return $value;
+  return (string) $value;
 }
 
 function createOptions() {
