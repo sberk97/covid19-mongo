@@ -210,7 +210,9 @@ try {
       $cursor = $manager->executeQuery($dbname, $query);
       
       returnTable($cursor);
-      returnMap();
+      if (!empty($recordDataForMap)) {
+          returnMap();
+      }
     }
 } catch(Exception $e){
     echo "<h1>Failed to connect with database</h1>";
