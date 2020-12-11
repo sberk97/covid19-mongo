@@ -1,58 +1,191 @@
-  .sidenav {
-    height: 100%;
-    width: 200px;
-    position: fixed;
-    z-index: 1;
-    top: 0;
-    left: 0;
-    background-color: black;
-    overflow-x: hidden;
-    padding-top: 10px;
-  }
+:root {
+  --border-radius: 5px;
+  --color: #5F5566;
+  --color-bg: lightgray;
+  --color-bg-secondary: black;
+  --color-text: #000;
+  --color-text-secondary: white;
+  --color-text-disabled: gray;
+  --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  --font-size: 20px;
+  --hover-brightness: 1.2;
+  --line-height: 1.5;
+}
 
-  .sidenav .column-description {
-    padding: 0px 0px 6px 6px;
-    font-size: 18px;
-    color: white;
-    border-bottom: 1px solid white;
-  }
-  
-  .sidenav label {
-    padding: 6px 6px 6px 6px;
-    font-size: 20px;
-    color: gray;
-    display: block;
-    overflow-y: auto;
-    border-bottom: 1px solid white;
-  }
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-family);
+  line-height: var(--line-height);
+  font-size: var(--font-size);
+  margin: 0;
+  overflow-x: hidden;
+}
 
-  .sidenav input[type=checkbox] {
-      visibility: hidden;
-      display: none;
-  }
-  
-  .sidenav label:hover, .sidenav :checked + label {
-    color: white;
-    cursor: pointer;
-    background-color: #5F5566;
-  }
+.sidenav {
+  height: 100%;
+  width: 200px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: var(--color-bg-secondary);
+  overflow-x: hidden;
+}
 
-  .sidenav .select-btn {
-    background-color: #5F5566;
-    display: block;
-    cursor: pointer;
-    color: white;
-    font-size: 15px;
-    padding: 5px 20px;
-    margin: 15px 5px 5px 40px;
-  }
+.sidenav .column-description, .sidenav label {
+  border-bottom: 1px solid white;
+  padding: 6px;
+}
 
-  .main {
-    margin-left: 200px; /* Same as the width of the sidenav */
-  }
+.sidenav .column-description {
+  color: var(--color-text-secondary);
+  font-size: 1.1rem;
+}
 
-  body {
-    background-color: #80ADA0;
-  }
+.sidenav label {
+  color: var(--color-text-disabled);
+  display: block;
+  overflow-y: auto;
+}
 
-  #mapid { height: 500px; }
+.sidenav input[type=checkbox] {
+  visibility: hidden;
+  display: none;
+}
+
+.sidenav label:hover, .sidenav :checked + label {
+  cursor: pointer;
+  background-color: var(--color);
+}
+
+.sidenav label:hover {
+  filter: brightness(var(--hover-brightness));
+}
+
+.sidenav :checked + label {
+  color: var(--color-text-secondary);
+}
+
+.sidenav button {
+  display: block;
+  margin: 15px 5px 5px 40px;
+  width: 7rem;
+}
+
+.main {
+  margin-left: 250px; /* Same as the width of the sidenav (min 200px) */
+}
+
+form {
+  width: fit-content;
+}
+
+button {
+  background-color: var(--color);
+  color: var(--color-text-secondary);
+  border: 2px solid var(--color);
+  border-radius: var(--border-radius);
+  font-size: 1rem;
+  font-family: var(--font-family);
+  padding: 5px 20px;
+  outline: none;
+}
+
+button:hover {
+  cursor: pointer;
+  filter: brightness(var(--hover-brightness));
+}
+
+#mapid { 
+  height: 430px;
+  margin-bottom: 3rem;
+  margin-right: 2rem; 
+}
+
+form table td {
+  text-align: center;
+}
+
+form table tr td:first-child, .justify {
+  display: flex; 
+  justify-content: space-between;
+}
+
+form table td, form table th {
+  padding: 5px;
+}
+
+form table tr td:first-child label {
+  padding-right: 30px;
+}
+
+input[type=number], input[type=date], input[type=text], select {
+  width: 10rem;
+  padding: 0;
+  height: 25px;
+  font-size: 15px;
+  border-radius: var(--border-radius);
+  border: 1px solid var(--color-bg-secondary);
+}
+
+form input[type=checkbox] {
+  transform: scale(1.5);
+  -ms-transform: scale(1.5);
+  -webkit-transform: scale(1.5);
+}
+
+.advanced-label {
+  margin-right: 1rem;
+}
+
+.additional-padding {
+  padding-left: 7px;
+  padding-top: 5px;
+}
+
+.additional-padding select {
+  margin-left: 5rem;
+  margin-right: 2rem;
+}
+
+.additional-padding input[type=number] {
+  margin-left: 6rem;
+}
+
+.additional-padding #descending {
+  margin-left: 1rem;
+}
+
+.form-buttons {
+  padding-top: 2rem;
+  padding-left: 5rem;
+  padding-bottom: 1rem;
+}
+
+#submit-btn {
+  margin-right: 4rem;
+}
+
+.results table {
+  margin-right: 2rem;
+  margin-bottom: 3rem;
+  border-collapse: collapse;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  background-color: white;
+  text-align: center;
+}
+
+.results table, .results td, .results th {
+  border: 1px solid black;
+  padding: 0px 5px;
+}
+
+.results th {
+  background-color: var(--color);
+  color: var(--color-text-secondary);
+}
+
+.results tr:nth-of-type(even) {
+  background-color: var(--color-bg);
+}

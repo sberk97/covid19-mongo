@@ -24,85 +24,101 @@
       echo "<input id='$fieldName' type='checkbox' name='column-checkbox'/><label for='$fieldName'>" . $settings["on-screen"] . "</label>";
     }
     ?>
-    <button class="select-btn" onClick="selectAll();">Select all</button>
-    <button class="select-btn" onClick="deselect();">Deselect</button>
+    <button onClick="selectAll();">Select all</button>
+    <button onClick="deselect();">Deselect</button>
   </div>
 
   <div class="main">
     <h1>COVID-19 Cases Database</h1>
-    <p>Pick columns that you want to query by</p>
-    <p>Display? - If you want to query by that column but don't want to see it in the results</p>
-    <p>Should not exists? - If this column shouldn't exists in the record</p>
-    <p>Advanced query? - If you want to query numerical values with "greater than" and "less than"</p>
-    <p>Leave empty input if you don't want to query by its value</p>
-    <p>If you want to search multiple values separate it with comma ',' (only for text)</p>
+    Pick columns from the left menu that you want to search by<br>
+    Leave empty input if you don't want to search by its value<br>
+    If you want to search multiple values separate them with comma ',' (only for text inputs)<br>
+    Display - If you want to search by that column but don't want to see it in the results<br>
+    Should not exists? - If this column shouldn't exists in the record<br>
+    Should not be empty? - If this column should have values<br>
+    Advanced search? - If you want to search numerical values with "greater than" and "less than"<br>
 
-    <form id="covid-form">
-    <?php
-    function insertStep($isDouble) {
-      if ($isDouble) {
-        return " step='any' ";
-      }
-    }
-
-    foreach ($fieldNamesWithSettings as $fieldName => $settings) {
-      $fieldhtml = "<div id='$fieldName-div' style='display:none;'>";
-      $fieldhtml .= "<label for='$fieldName'>" . $settings["on-screen"] . ":</label><input type='" . $settings["input-type"] . "'" . insertStep($settings["is-double"]) . "id='$fieldName-input' name='$fieldName' disabled>";
-      
-      if ($settings["display"]) {
-        $fieldhtml .= "<label for='$fieldName-display'>Display?</label><input id='$fieldName-display' name='$fieldName-display' type='checkbox' disabled checked/>";
-      }
-
-      if ($settings["exists"]) {
-        $fieldhtml .= "<label for='$fieldName-exists'>Should not exists?</label><input id='$fieldName-exists' name='$fieldName-exists' type='checkbox' disabled />";
+    <form id="covid-form" style='display:none;'>
+      <table>
+        <tr id="table-head">
+          <th>Field name</th>
+          <th>Display</th>
+          <th>Should not exists?</th>
+          <th>Should not be empty?</th>
+          <th>Advanced search?</th>
+        </tr>
+      <?php
+      function insertStep($isDouble) {
+        if ($isDouble) {
+          return " step='any' ";
+        }
       }
 
-      if ($settings["not-empty"]) {
-        $fieldhtml .= "<label for='$fieldName-notempty'>Should not be empty?</label><input id='$fieldName-notempty' name='$fieldName-notempty' type='checkbox' disabled />";
-      }
+      foreach ($fieldNamesWithSettings as $fieldName => $settings) {
+        $fieldhtml = "<tr id='$fieldName-tr' style='display:none;'>";
+        $fieldhtml .= "<td><label for='$fieldName-form'>" . $settings["on-screen"] . ":</label><input type='" . $settings["input-type"] . "'" . insertStep($settings["is-double"]) . "id='$fieldName-input' name='$fieldName' disabled></td>";
+        
+        if ($settings["display"]) {
+          $fieldhtml .= "<td><input id='$fieldName-display' name='$fieldName-display' type='checkbox' disabled checked/></td>";
+        }
 
-      if ($settings["advanced"]) {
-        $fieldhtml .= "<label for='$fieldName-advanced'>Advanced query?</label><input id='$fieldName-advanced' name='$fieldName-advanced' type='checkbox' disabled/>";
-        $fieldhtml .= "<div id='$fieldName-advanced-div' style='display:none;'>
-          <label for='$fieldName-advanced-gt'>Greater than:</label>
-          <input type='" . $settings["input-type"] . "'" . insertStep($settings["is-double"]) . " id='$fieldName-advanced-gt-input' name='$fieldName-advanced-gt'>
-          <label for='$fieldName-advanced-lt'>Less than:</label>
-          <input type='" . $settings["input-type"] . "'" . insertStep($settings["is-double"]) . " id='$fieldName-advanced-lt-input' name='$fieldName-advanced-lt'>
-        </div>";
-      }
-      
-      $fieldhtml .= "</div>";
+        if ($settings["exists"]) {
+          $fieldhtml .= "<td><input id='$fieldName-exists' name='$fieldName-exists' type='checkbox' disabled /></td>";
+        }
 
-      echo $fieldhtml;
-    }
-    ?>
-    <div>
-      <label for="sort-by">Sort by:</label>
-      <select name="sort-by" id="sort-by">
-        <option hidden disabled selected value> -- select an option -- </option>
-        <?php
-          foreach ($fieldNamesWithSettings as $fieldName => $settings) {
-            echo "<option value='$fieldName' disabled>" . $settings["on-screen"] . "</option>";
-          }
-        ?>
-      </select>
-      <input type="radio" id="ascending" name="asc-desc" value="ascending" checked>
-      <label for="ascending">Ascending</label>
-      <input type="radio" id="descending" name="asc-desc" value="descending">
-      <label for="descending">Descending</label>
-    </div>
-    <div>
-      <label for="limit">Limit:</label>
-      <input type="number" id="limit-input" name="limit"><br>
-      <label for="skip">Skip:</label>
-      <input type="number" id="skip-input" name="skip">
-    </div>
-    <div>
-      <button id="submit-btn" type="submit" value="submit">SUBMIT</button>
-      <button id="reset-btn" type="reset" value="reset">Reset form</button>
-    </div>
+        if ($settings["not-empty"]) {
+          $fieldhtml .= "<td><input id='$fieldName-notempty' name='$fieldName-notempty' type='checkbox' disabled /></td>";
+        }
+
+        if ($settings["advanced"]) {
+          $fieldhtml .= "<td><input id='$fieldName-advanced' name='$fieldName-advanced' type='checkbox' disabled/></td>";
+          $fieldhtml .= "<td id='$fieldName-advanced-tr' style='display:none;'>
+            <div class='justify'>
+              <label for='$fieldName-advanced-gt' class='advanced-label'>Greater than:</label>
+              <input type='" . $settings["input-type"] . "'" . insertStep($settings["is-double"]) . " id='$fieldName-advanced-gt-input' name='$fieldName-advanced-gt'>
+            </div>
+            <div class='justify'>
+              <label for='$fieldName-advanced-lt' class='advanced-label'>Less than:</label>
+              <input type='" . $settings["input-type"] . "'" . insertStep($settings["is-double"]) . " id='$fieldName-advanced-lt-input' name='$fieldName-advanced-lt'>
+            </div>
+          </td>";
+        }
+        
+        $fieldhtml .= "</tr>";
+
+        echo $fieldhtml;
+      }
+      ?>
+      </table>
+      <div class="additional-padding">
+        <label for="sort-by">Sort by:</label>
+        <select name="sort-by" id="sort-by">
+          <option hidden disabled selected value> -- select an option -- </option>
+          <?php
+            foreach ($fieldNamesWithSettings as $fieldName => $settings) {
+              echo "<option value='$fieldName' disabled>" . $settings["on-screen"] . "</option>";
+            }
+          ?>
+        </select>
+        <input type="radio" id="ascending" name="asc-desc" value="ascending" checked>
+        <label for="ascending">Ascending</label>
+        <input type="radio" id="descending" name="asc-desc" value="descending">
+        <label for="descending">Descending</label>
+      </div>
+      <div class="additional-padding">
+        <label for="limit">Limit:</label>
+        <input type="number" id="limit-input" name="limit">
+      </div>
+      <div class="additional-padding"> 
+        <label for="skip">Skip:&nbsp</label>
+        <input type="number" id="skip-input" name="skip">
+      </div>
+      <div class="form-buttons">
+        <button id="submit-btn" type="submit" value="submit">SUBMIT</button>
+        <button id="reset-btn" type="reset" value="reset">Reset form</button>
+      </div>
     </form>
-    <div id="results"><b>Results will display here...</b></div>
+    <div class="results" id="results"></div>
   </div>
 </body>
 </html>

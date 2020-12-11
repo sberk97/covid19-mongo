@@ -25,16 +25,33 @@ function deselect() {
     for (var i = 0; i < checkboxes.length; i++) {
         checkboxes[i].checked = false;
     }
+    $("#covid-form").hide();
     $(fields).each(changeVisibilityOfInput);
     document.getElementById("covid-form").reset();
 }
 
+function checkIfFormShouldBeHidden() {
+    var checkboxes = document.querySelectorAll('input[name=column-checkbox]');
+    for (var i = 0; i < checkboxes.length; i++) {
+        if (checkboxes[i].checked == true) {
+            return;
+        }
+    }
+    $("#covid-form").hide();
+}
+
 function changeVisibilityOfInput() {
     if ($(this).is(':checked')){
-        $("#" + this.id + "-div").show();
+        if (!$("#covid-form").is(":visible")) {
+            $("#covid-form").show();
+        }
+        $("#" + this.id + "-tr").show();
         enableFieldWithGivenId(this.id);
     } else {
-        $("#" + this.id + "-div").hide();
+        if ($("#covid-form").is(":visible")) {
+            checkIfFormShouldBeHidden();
+        }
+        $("#" + this.id + "-tr").hide();
         $(this).each(setInputToDefault);
         disableFieldWithGivenId(this.id);
     }
@@ -60,11 +77,11 @@ function changeVisibilityOfAdvancedInput() {
 
 function changeVisibilityOfAdvancedInputWithGivenId(id) {
     if ($("#" + id + "-advanced").is(':checked')){
-        $("#" + id + "-advanced-div").show();
+        $("#" + id + "-advanced-tr").show();
         enableAdvancedInput(id);
         $("#" + id + "-input").prop("disabled", true);
     } else {
-        $("#" + id + "-advanced-div").hide();
+        $("#" + id + "-advanced-tr").hide();
         disableAdvancedInput(id);
         $("#" + id + "-input").prop("disabled", false);
     }
