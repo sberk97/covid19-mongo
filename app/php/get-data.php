@@ -2,17 +2,17 @@
 <html>
 <head>
 <style>
-table {
+.results table {
   width: 100%;
   border-collapse: collapse;
 }
 
-table, td, th {
+.results table, .results td, .results th {
   border: 1px solid black;
   padding: 5px;
 }
 
-th {text-align: left;}
+.results th {text-align: left;}
 </style>
 </head>
 <body>
