@@ -99,7 +99,6 @@ button:hover {
 
 #mapid { 
   height: 430px;
-  margin-top: 3rem;
   margin-bottom: 3rem;
   margin-right: 2rem; 
 }
@@ -166,4 +165,27 @@ form input[type=checkbox] {
 
 #submit-btn {
   margin-right: 4rem;
+}
+
+.results table {
+  margin-right: 2rem;
+  margin-bottom: 3rem;
+  border-collapse: collapse;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  background-color: white;
+  text-align: center;
+}
+
+.results table, .results td, .results th {
+  border: 1px solid black;
+  padding: 0px 5px;
+}
+
+.results th {
+  background-color: var(--color);
+  color: var(--color-text-secondary);
+}
+
+.results tr:nth-of-type(even) {
+  background-color: var(--color-bg);
 }

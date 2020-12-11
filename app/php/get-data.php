@@ -1,20 +1,5 @@
 <!DOCTYPE html>
 <html>
-<head>
-<style>
-.results table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-.results table, .results td, .results th {
-  border: 1px solid black;
-  padding: 5px;
-}
-
-.results th {text-align: left;}
-</style>
-</head>
 <body>
 
 <?php require 'field-settings.php';
