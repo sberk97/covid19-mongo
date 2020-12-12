@@ -196,7 +196,10 @@ $("#covid-form").submit(function(event){
     request = $.ajax({
         url: "app/php/get-data.php",
         type: "post",
-        data: serializedData
+        data: serializedData,
+        beforeSend: function(){
+            document.getElementById("results").innerHTML = '<div class="lds-dual-ring"></div>';
+        },
     });
 
     request.done(function (response, textStatus, jqXHR){
