@@ -153,6 +153,7 @@ function saveRecordDataForMap($r) {
         $location = prepareLocationString($admin2, $provinceState, $countryRegion);
       } else {
         $location = $combinedKey;
+        $location = str_replace("'", " ", $location);
       }
       $confirmed = $r -> {"confirmed"};
       $deaths = $r -> {"deaths"};
