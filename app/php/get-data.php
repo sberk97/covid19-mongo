@@ -145,14 +145,29 @@ function saveRecordDataForMap($r) {
   $latitude = $r -> {"latitude"};
   $longitude = $r -> {"longitude"};
   if (!empty($latitude) && !empty($longitude)) {
-      $countryRegion = $r -> {"country-region"};
-      $countryRegion = str_replace("'", " ", $countryRegion); // caused issues while returning script
+      $combinedKey = $r -> {"combined-key"};
+      if(empty($combinedKey)) {
+        $admin2 = $r -> {"admin2"};
+        $provinceState = $r -> {"province-state"};
+        $countryRegion = $r -> {"country-region"};
+        $location = prepareLocationString($admin2, $provinceState, $countryRegion);
+      } else {
+        $location = $combinedKey;
+      }
       $confirmed = $r -> {"confirmed"};
       $deaths = $r -> {"deaths"};
       $recovered = $r -> {"recovered"};
-      $recordData = ["latitude" => $latitude, "longitude" => $longitude, "country-region" => $countryRegion, "confirmed" => $confirmed, "deaths" => $deaths, "recovered" => $recovered];
+      $recordData = ["latitude" => $latitude, "longitude" => $longitude, "location" => $location, "confirmed" => $confirmed, "deaths" => $deaths, "recovered" => $recovered];
       $recordDataForMap[] = $recordData;
   }
+}
+
+function prepareLocationString($admin2, $provinceState, $countryRegion) {
+  // string containing ' caused issues
+  $admin2 = str_replace("'", " ", $admin2);
+  $provinceState = str_replace("'", " ", $provinceState);
+  $countryRegion = str_replace("'", " ", $countryRegion);
+  return implode(", ", array_filter([$admin2, $provinceState, $countryRegion]));
 }
 
 function prepareValueToDisplay($value, $inputType) {
@@ -186,13 +201,25 @@ function createMarkers() {
   foreach ($recordDataForMap as $key => $value) {
     $lat = $value['latitude'];
     $long = $value['longitude'];
-    $countryRegion = $value['country-region'];
+    $location = $value['location'];
     $confirmed = $value['confirmed'];
     $deaths = $value['deaths'];
     $recovered = $value['recovered'];
-    $markersString .= 
-    "var marker$i = L.marker(['$lat', '$long']).addTo(mymap);
-    marker$i.bindPopup('<b>$countryRegion</b><br><br>Confirmed cases: $confirmed<br>Death cases: $deaths<br>Recovered cases: $recovered');";
+    $markersString .= "var marker$i = L.marker(['$lat', '$long']).addTo(mymap);marker$i.bindPopup('";
+    $markersString .= "<b>$location</b><br><br>";
+
+    // empty returns True for 0 but I want to display 0 on a map
+    if ($confirmed == 0 || !empty($confirmed)) {
+      $markersString .= "Confirmed cases: $confirmed<br>";
+    }
+    if ($deaths == 0 || !empty($deaths)) {
+      $markersString .= "Death cases: $deaths<br>";
+    }
+    if ($recovered == 0 || !empty($recovered)) {
+      $markersString .= "Recovered cases: $recovered";
+    }
+
+    $markersString .= "');";
     $i++;
     if ($i==200) {
       break; // limit number of markers as it can freeze browser
