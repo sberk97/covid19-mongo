@@ -234,7 +234,7 @@ try {
     $manager = connectWithDb();
     if ($manager) {
       $query = new MongoDB\Driver\Query(createFilter(), createOptions());
-      $dbname="covid19.covid19";
+      $dbname = "covid19.covid19";
       $cursor = $manager->executeQuery($dbname, $query);
       
       returnTable($cursor);
