@@ -73,7 +73,7 @@
 
         if ($settings["advanced"]) {
           $fieldhtml .= "<td><input id='$fieldName-advanced' name='$fieldName-advanced' type='checkbox' disabled/></td>";
-          $fieldhtml .= "<td id='$fieldName-advanced-tr' style='display:none;'>
+          $fieldhtml .= "<td id='$fieldName-advanced-td' style='display:none;'>
             <div class='justify'>
               <label for='$fieldName-advanced-gt' class='advanced-label'>Greater than:</label>
               <input type='" . $settings["input-type"] . "'" . insertStep($settings["is-double"]) . " id='$fieldName-advanced-gt-input' name='$fieldName-advanced-gt'>
