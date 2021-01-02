@@ -20,37 +20,29 @@ function addIdToString(element, str) {
     return str;
 }
 
-var displayCheckboxArr = document.querySelectorAll('[id $= "-display"]');
-var existsCheckboxArr = document.querySelectorAll('[id $= "-exists"]');
-var notEmptyCheckboxArr = document.querySelectorAll('[id $= "-notempty"]');
-var advFieldsCheckbox = document.querySelectorAll('[id $= "-advanced"]');
+var checkboxNames = ["-display", "-exists", "-notempty", "-advanced"];
+var checkboxStringId = [];
 
-var displayCheckbox = "";
-var existsCheckbox = "";
-var notEmptyCheckbox = "";
-var advFields = ""
+checkboxNames.forEach(element => {
+    var selector = '[id $= "' + element + '"]';
+    var checkboxArr = document.querySelectorAll(selector);
+    var checkboxString = "";
+    checkboxArr.forEach((element) => {
+        checkboxString = addIdToString(element, checkboxString);
+    })
+    checkboxStringId.push(checkboxString);
+});
 
-displayCheckboxArr.forEach((element) => {
-    displayCheckbox = addIdToString(element, displayCheckbox);
-})
-
-existsCheckboxArr.forEach((element) => {
-    existsCheckbox = addIdToString(element, existsCheckbox);
-})
-
-notEmptyCheckboxArr.forEach((element) => {
-    notEmptyCheckbox = addIdToString(element, notEmptyCheckbox);
-})
-
-advFieldsCheckbox.forEach((element) => {
-    advFields = addIdToString(element, advFields);
-})
+var displayCheckbox = checkboxStringId[0];
+var existsCheckbox = checkboxStringId[1];
+var notEmptyCheckbox = checkboxStringId[2];
+var advFieldsCheckbox = checkboxStringId[3];
 
 $(fields).change(changeVisibilityOfInput);
 $(displayCheckbox).change(changeStateOfFieldInSort);
 $(existsCheckbox).change(disableFieldWhenShouldNotExists);
 $(notEmptyCheckbox).change(changeStateOfNotExist);
-$(advFields).change(changeVisibilityOfAdvancedInput);
+$(advFieldsCheckbox).change(changeVisibilityOfAdvancedInput);
 $("#reset-btn").click(resetForm);
 
 function selectAll() {
@@ -141,7 +133,7 @@ function disableAdvancedInput(id) {
 
 function resetForm() {
     document.getElementById("covid-form").reset();
-    $(advFields).each(changeVisibilityOfAdvancedInput);
+    $(advFieldsCheckbox).each(changeVisibilityOfAdvancedInput);
     $(fields).each(enableFields);
 }
 
