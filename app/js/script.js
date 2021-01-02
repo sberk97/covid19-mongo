@@ -1,14 +1,48 @@
-var fields = "#fips, #admin2, #province-state, #country-region, #last-update, #latitude, #longitude, #confirmed, #deaths, #recovered, #active, #combined-key, #incidence-rate, #case-fatality-ratio";
-var displayCheckbox = "#fips-display, #admin2-display, #province-state-display, #country-region-display, #last-update-display, #latitude-display, #longitude-display, #confirmed-display, #deaths-display, #recovered-display, #active-display, #combined-key-display, #incidence-rate-display, #case-fatality-ratio-display";
-var existsCheckbox = "#fips-exists, #admin2-exists, #province-state-exists, #country-region-exists, #last-update-exists, #latitude-exists, #longitude-exists, #confirmed-exists, #deaths-exists, #recovered-exists, #active-exists, #combined-key-exists, #incidence-rate-exists, #case-fatality-ratio-exists";
-var notEmptyCheckbox = "#fips-notempty, #admin2-notempty, #province-state-notempty, #country-region-notempty, #last-update-notempty, #latitude-notempty, #longitude-notempty, #confirmed-notempty, #deaths-notempty, #recovered-notempty, #active-notempty, #combined-key-notempty, #incidence-rate-notempty, #case-fatality-ratio-notempty";
-var advFields = "#last-update-advanced, #confirmed-advanced, #deaths-advanced, #recovered-advanced, #active-advanced, #incidence-rate-advanced, #case-fatality-ratio-advanced";
+// Generate string with IDs of fields
+var fieldsArr = document.querySelectorAll('[id $= "-tr"]');
+var fields = "";
+function addFieldToString(element) {
+    if(fields !== "") {
+        fields += ", ";
+    }
+    fields += "#";
+    fields += element.id.substr(0, element.id.lastIndexOf('-'));
+}
+Array.prototype.forEach.call(fieldsArr, addFieldToString);
+
+// Generate string with ids of checkboxes
+function addIdToString(element, str) {
+    if(str !== "") {
+        str += ", ";
+    }
+    str += "#";
+    str += element.id;
+    return str;
+}
+
+var checkboxNames = ["-display", "-exists", "-notempty", "-advanced"];
+var checkboxStringId = [];
+
+checkboxNames.forEach(element => {
+    var selector = '[id $= "' + element + '"]';
+    var checkboxArr = document.querySelectorAll(selector);
+    var checkboxString = "";
+    checkboxArr.forEach((element) => {
+        checkboxString = addIdToString(element, checkboxString);
+    })
+    checkboxStringId.push(checkboxString);
+});
+
+var displayCheckbox = checkboxStringId[0];
+var existsCheckbox = checkboxStringId[1];
+var notEmptyCheckbox = checkboxStringId[2];
+var advFieldsCheckbox = checkboxStringId[3];
 
 $(fields).change(changeVisibilityOfInput);
 $(displayCheckbox).change(changeStateOfFieldInSort);
 $(existsCheckbox).change(disableFieldWhenShouldNotExists);
 $(notEmptyCheckbox).change(changeStateOfNotExist);
-$(advFields).change(changeVisibilityOfAdvancedInput);
+$(advFieldsCheckbox).change(changeVisibilityOfAdvancedInput);
 $("#reset-btn").click(resetForm);
 
 function selectAll() {
@@ -77,11 +111,11 @@ function changeVisibilityOfAdvancedInput() {
 
 function changeVisibilityOfAdvancedInputWithGivenId(id) {
     if ($("#" + id + "-advanced").is(':checked')){
-        $("#" + id + "-advanced-tr").show();
+        $("#" + id + "-advanced-td").show();
         enableAdvancedInput(id);
         $("#" + id + "-input").prop("disabled", true);
     } else {
-        $("#" + id + "-advanced-tr").hide();
+        $("#" + id + "-advanced-td").hide();
         disableAdvancedInput(id);
         $("#" + id + "-input").prop("disabled", false);
     }
@@ -99,7 +133,7 @@ function disableAdvancedInput(id) {
 
 function resetForm() {
     document.getElementById("covid-form").reset();
-    $(advFields).each(changeVisibilityOfAdvancedInput);
+    $(advFieldsCheckbox).each(changeVisibilityOfAdvancedInput);
     $(fields).each(enableFields);
 }
 
