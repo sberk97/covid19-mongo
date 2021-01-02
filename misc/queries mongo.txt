@@ -1,0 +1,36 @@
+1. List the following details (FIPS, Provinces State, Lat, Long, Confirmed, Deaths, Recovered, Active) 
+where the death cases are less than 850 and greater than 800 worldwide. DONE
+
+db.covid19.find({deaths: {$gt: 800, $lt: 850}}, {fips: true, "province state": true, latitude: true, longitude: true, confirmed: true, deaths: true, recovered: true, active: true}).pretty()
+
+2. Find the number of records and the total numbers of the confirmed cases, the death cases, and the recovered cases within the country region of Denmark.
+
+db.covid19.aggregate(
+	[
+		{$match: {"country region": "Denmark"}},
+		{$group: {
+			"_id": "$country region",
+			"number of records": { $sum: 1 },
+			"confirmed": { $sum: "$confirmed" },
+			"deaths": { $sum: "$deaths" },
+			"recovered": { $sum: "$recovered" }
+		}
+		}
+	]
+).pretty()
+
+3. List all the details that feature COVID-19 cases in Greece and Cyprus
+
+db.covid19.find({"country region": { $in: ["Greece", "Cyprus"]}}).pretty()
+
+4. List 10 records’ details that feature COVID-19 cases where both Lat and Long have no values. DONE
+
+db.covid19.find({"longitude": {$exists: false}, "latitude": {$exists: false}}).limit(10).pretty()
+
+5. Find out the top 10 countries details with highest Confirmed cases and Death cased. DONE (NO COUNT)
+
+db.covid19.find({}, {"_id": false, "country region": true, "confirmed": true, "deaths": true}).sort({"confirmed": -1, "deaths": -1}).limit(10).pretty()
+
+6. List all the confirmed cases in China including the Province State, the location (Lat and Long) details. DONE
+
+db.covid19.find({"country region" : "China"}, {"_id": false, "country region": true, "province state": true, "confirmed": true, "latitude": true, "longitude": true}).pretty() 
