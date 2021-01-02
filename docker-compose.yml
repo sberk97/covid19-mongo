@@ -1,0 +1,31 @@
+version: "3.8"
+
+services:
+    mongo:
+      image: 'mongo:latest'
+      container_name: mongo
+      ports:
+        - '27017:27017'
+      # environment:
+      #   MONGO_INITDB_ROOT_USERNAME: root
+      #   MONGO_INITDB_ROOT_PASSWORD: example
+
+    nginx:
+      image: 'bitnami/nginx:latest'
+      container_name: nginx
+      depends_on:
+        - phpfpm
+      ports:
+        - "80:8080"
+#        - "443:8443"
+      volumes:
+        - ./:/app:cached
+        - ./nginx/server_block.conf:/opt/bitnami/nginx/conf/server_blocks/yourapp.conf:cached
+      
+    phpfpm:
+      image: 'php-with-mongo:latest'
+      container_name: phpfpm
+      working_dir: /app
+      volumes:
+        - ./:/app:cached
+        - ./php/php.ini:/opt/bitnami/php/etc/php.ini
